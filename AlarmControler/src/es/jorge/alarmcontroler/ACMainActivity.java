@@ -2,6 +2,10 @@ package es.jorge.alarmcontroler;
 
 import java.util.Locale;
 
+import es.jorge.alarmcontroler.R;
+import es.jorge.alarmcontroler.SettingsActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -56,6 +60,28 @@ public class ACMainActivity extends FragmentActivity {
 		getMenuInflater().inflate(R.menu.acmain, menu);
 		return true;
 	}
+	
+	// launch the setting activity
+		public void lanzarSettingsActivity(View view) {
+
+			Intent i = new Intent(this, SettingsActivity.class);
+
+			startActivity(i);
+
+		}
+		
+		// to catch the settings menu selection
+		@Override
+		public boolean onOptionsItemSelected(MenuItem item) {
+			switch (item.getItemId()) {
+			case R.id.SettingsActivity:
+				lanzarSettingsActivity(null);
+				break;
+			}
+			return true;
+			/** true -> consumimos el item, no se propaga */
+		}
+
 
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -72,9 +98,9 @@ public class ACMainActivity extends FragmentActivity {
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
-			Fragment fragment = new DummySectionFragment();
+			Fragment fragment = new MainControlFragment();
 			Bundle args = new Bundle();
-			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
+			args.putInt(MainControlFragment.ARG_SECTION_NUMBER, position + 1);
 			fragment.setArguments(args);
 			return fragment;
 		}
@@ -104,14 +130,14 @@ public class ACMainActivity extends FragmentActivity {
 	 * A dummy fragment representing a section of the app, but that simply
 	 * displays dummy text.
 	 */
-	public static class DummySectionFragment extends Fragment {
+	public static class MainControlFragment extends Fragment {
 		/**
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
-		public DummySectionFragment() {
+		public MainControlFragment() {
 		}
 
 		@Override

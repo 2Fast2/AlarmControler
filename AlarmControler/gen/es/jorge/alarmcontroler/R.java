@@ -8,6 +8,14 @@
 package es.jorge.alarmcontroler;
 
 public final class R {
+    public static final class array {
+        public static final int pref_example_list_titles=0x7f070000;
+        public static final int pref_example_list_values=0x7f070001;
+        /**  Number of sensors 
+         */
+        public static final int pref_number_sensors_titles=0x7f070002;
+        public static final int pref_number_sensors_values=0x7f070003;
+    }
     public static final class attr {
     }
     public static final class dimen {
@@ -17,31 +25,49 @@ public final class R {
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
+        public static final int activity_horizontal_margin=0x7f050000;
+        public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f080003;
-        public static final int pager=0x7f080000;
-        public static final int pager_title_strip=0x7f080001;
-        public static final int section_label=0x7f080002;
+        public static final int SettingsActivity=0x7f0a0003;
+        public static final int pager=0x7f0a0000;
+        public static final int pager_title_strip=0x7f0a0001;
+        public static final int section_label=0x7f0a0002;
     }
     public static final class layout {
         public static final int activity_acmain=0x7f030000;
         public static final int fragment_acmain_dummy=0x7f030001;
     }
     public static final class menu {
-        public static final int acmain=0x7f070000;
+        public static final int acmain=0x7f090000;
     }
     public static final class string {
-        public static final int action_settings=0x7f050001;
-        public static final int app_name=0x7f050000;
-        public static final int title_section1=0x7f050002;
-        public static final int title_section2=0x7f050003;
-        public static final int title_section3=0x7f050004;
+        public static final int action_settings=0x7f060001;
+        public static final int app_name=0x7f060000;
+        public static final int pref_default_ip=0x7f06000a;
+        public static final int pref_description_social_recommendations=0x7f060008;
+        /**  Strings related to Settings 
+ Example General settings 
+         */
+        public static final int pref_header_general=0x7f060006;
+        /**  Example settings for Notifications 
+         */
+        public static final int pref_header_notifications=0x7f06000d;
+        public static final int pref_ip=0x7f06000b;
+        public static final int pref_ringtone_silent=0x7f060010;
+        public static final int pref_title_add_friends_to_messages=0x7f060009;
+        public static final int pref_title_new_message_notifications=0x7f06000e;
+        public static final int pref_title_number_sensors=0x7f06000c;
+        public static final int pref_title_ringtone=0x7f06000f;
+        public static final int pref_title_social_recommendations=0x7f060007;
+        public static final int pref_title_vibrate=0x7f060011;
+        public static final int title_activity_settings=0x7f060005;
+        public static final int title_section1=0x7f060002;
+        public static final int title_section2=0x7f060003;
+        public static final int title_section3=0x7f060004;
     }
     public static final class style {
         /** 
@@ -65,10 +91,15 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f060000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f060001;
+        public static final int AppTheme=0x7f080001;
+    }
+    public static final class xml {
+        public static final int pref_general=0x7f040000;
+        public static final int pref_headers=0x7f040001;
+        public static final int pref_notification=0x7f040002;
     }
 }
