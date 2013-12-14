@@ -62,26 +62,23 @@ public class ACMainActivity extends FragmentActivity {
 	}
 	
 	// launch the setting activity
-		public void lanzarSettingsActivity(View view) {
+	public void lanzarSettingsActivity(View view) {
 
-			Intent i = new Intent(this, SettingsActivity.class);
+		Intent i = new Intent(this, SettingsActivity.class);
+		startActivity(i);
+	}
 
-			startActivity(i);
-
+	// to catch the settings menu selection
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.SettingsActivity:
+			lanzarSettingsActivity(null);
+			break;
 		}
-		
-		// to catch the settings menu selection
-		@Override
-		public boolean onOptionsItemSelected(MenuItem item) {
-			switch (item.getItemId()) {
-			case R.id.SettingsActivity:
-				lanzarSettingsActivity(null);
-				break;
-			}
-			return true;
-			/** true -> consumimos el item, no se propaga */
-		}
-
+		return true;
+		/** true -> consumimos el item, no se propaga */
+	}
 
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
