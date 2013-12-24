@@ -6,7 +6,9 @@ import es.jorge.alarmcontroler.R;
 import es.jorge.alarmcontroler.SettingsActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -51,6 +53,7 @@ public class ACMainActivity extends FragmentActivity {
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
+		
 
 	}
 
@@ -103,9 +106,13 @@ public class ACMainActivity extends FragmentActivity {
 		}
 
 		@Override
-		public int getCount() {
-			// Show 3 total pages.
-			return 3;
+		public int getCount() {		
+	        // get number of sensors
+			SharedPreferences pref =
+		            PreferenceManager.getDefaultSharedPreferences(ACMainActivity.this);			
+			String NumSensors = pref.getString("num_sensors","");
+			
+			return NumSensors == null ? -1 : Integer.valueOf(NumSensors);
 		}
 
 		@Override

@@ -50,19 +50,7 @@ public final class R {
  General settings 
          */
         public static final int pref_header_general=0x7f060006;
-        /**  
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
- 
- Example settings for Notifications 
+        /**  Example settings for Notifications 
          */
         public static final int pref_header_notifications=0x7f06000a;
         public static final int pref_ip=0x7f060008;
