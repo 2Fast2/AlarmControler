@@ -1,7 +1,10 @@
 package es.jorge.alarmcontroler;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -15,7 +18,11 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -37,6 +44,9 @@ public class SettingsActivity extends PreferenceActivity {
 	 * as a master/detail two-pane view on tablets. When true, a single pane is
 	 * shown on tablets.
 	 */
+	
+	private static boolean flag = false;
+	
 	private static final boolean ALWAYS_SIMPLE_PREFS = false;
 
 	@Override
@@ -74,6 +84,11 @@ public class SettingsActivity extends PreferenceActivity {
 		//bindPreferenceSummaryToValue(findPreference("example_list"));
 		bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
 		bindPreferenceSummaryToValue(findPreference("ip"));
+		bindPreferenceSummaryToValue(findPreference("num_sensors"));
+		
+		if (flag){
+			Toast.makeText(this, "HOLA", Toast.LENGTH_LONG).show();
+		}
 	}
 
 	/** {@inheritDoc} */
@@ -111,7 +126,26 @@ public class SettingsActivity extends PreferenceActivity {
 			loadHeadersFromResource(R.xml.pref_headers, target);
 		}
 	}
-
+	
+/*	public static class DialogoAlerta extends DialogFragment {
+	    @Override
+	    public Dialog onCreateDialog(Bundle savedInstanceState) {
+	 
+	        AlertDialog.Builder builder =
+	                new AlertDialog.Builder(getActivity());
+	 
+	        builder.setMessage("Esto es un mensaje de alerta.")
+	               .setTitle("Información")
+	               .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	                   public void onClick(DialogInterface dialog, int id) {
+	                       dialog.cancel();
+	                   }
+	               });
+	 
+	        return builder.create();
+	    }
+	}
+*/
 	/**
 	 * A preference value change listener that updates the preference's summary
 	 * to reflect its new value.
@@ -131,7 +165,28 @@ public class SettingsActivity extends PreferenceActivity {
 				preference
 						.setSummary(index >= 0 ? listPreference.getEntries()[index]
 								: null);
-
+				
+				flag = true;
+				
+				// when update this value it is necessary to re-start the app.
+			/*	FragmentManager fragmentManager = getSupportFragmentManager();
+		           DialogoAlerta dialogo = new DialogoAlerta();
+		        dialogo.show(fragmentManager, "tagAlerta");
+		    */   
+		/*        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		        builder.setMessage("Ejemplo de Mensaje Popup para Android OS desde Devtroce.com")
+		                .setTitle("Atención!!")
+		                .setCancelable(false)
+		                .setNeutralButton("Aceptar",
+		                        new DialogInterface.OnClickListener() {
+		                            public void onClick(DialogInterface dialog, int id) {
+		                                dialog.cancel();
+		                            }
+		                        });
+		        AlertDialog alert = builder.create();
+		        alert.show();
+*/
+			
 			} else if (preference instanceof RingtonePreference) {
 				// For ringtone preferences, look up the correct display value
 				// using RingtoneManager.

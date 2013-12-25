@@ -112,7 +112,7 @@ public class ACMainActivity extends FragmentActivity {
 		            PreferenceManager.getDefaultSharedPreferences(ACMainActivity.this);			
 			String NumSensors = pref.getString("num_sensors","");
 			
-			return NumSensors == null ? -1 : Integer.valueOf(NumSensors);
+			return NumSensors == null ? -1 : (Integer.valueOf(NumSensors) + 1);
 		}
 
 		@Override
@@ -125,6 +125,23 @@ public class ACMainActivity extends FragmentActivity {
 				return getString(R.string.title_section2).toUpperCase(l);
 			case 2:
 				return getString(R.string.title_section3).toUpperCase(l);
+			case 3:
+				return getString(R.string.title_section4).toUpperCase(l);
+			case 4:
+				return getString(R.string.title_section5).toUpperCase(l);
+			case 5:
+				return getString(R.string.title_section6).toUpperCase(l);
+			case 6:
+				return getString(R.string.title_section7).toUpperCase(l);
+			case 7:
+				return getString(R.string.title_section8).toUpperCase(l);
+			case 8:
+				return getString(R.string.title_section9).toUpperCase(l);
+			case 9:
+				return getString(R.string.title_section10).toUpperCase(l);
+			case 10:
+				return getString(R.string.title_section11).toUpperCase(l);
+				
 			}
 			return null;
 		}

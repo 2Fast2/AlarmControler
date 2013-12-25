@@ -6,5 +6,13 @@
     <string name="title_section1">Main Control</string>
     <string name="title_section2">Sensor 1</string>
     <string name="title_section3">Sensor 2</string>
+    <string name="title_section4">Sensor 3</string>
+    <string name="title_section5">Sensor 4</string>
+    <string name="title_section6">Sensor 5</string>
+    <string name="title_section7">Sensor 6</string>
+    <string name="title_section8">Sensor 7</string>
+    <string name="title_section9">Sensor 8</string>
+    <string name="title_section10">Sensor 9</string>
+    <string name="title_section11">Sensor 10</string>
 
 </resources>
