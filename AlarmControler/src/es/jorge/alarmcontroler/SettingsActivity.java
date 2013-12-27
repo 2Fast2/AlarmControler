@@ -44,9 +44,7 @@ public class SettingsActivity extends PreferenceActivity {
 	 * as a master/detail two-pane view on tablets. When true, a single pane is
 	 * shown on tablets.
 	 */
-	
-	private static boolean flag = false;
-	
+		
 	private static final boolean ALWAYS_SIMPLE_PREFS = false;
 
 	@Override
@@ -54,8 +52,10 @@ public class SettingsActivity extends PreferenceActivity {
 		super.onPostCreate(savedInstanceState);
 
 		setupSimplePreferencesScreen();
+		
 	}
-
+	
+		
 	/**
 	 * Shows the simplified settings UI if the device configuration if the
 	 * device configuration dictates that a simplified, single-pane UI should be
@@ -81,14 +81,10 @@ public class SettingsActivity extends PreferenceActivity {
 		// Bind the summaries of EditText/List/Dialog/Ringtone preferences to
 		// their values. When their values change, their summaries are updated
 		// to reflect the new value, per the Android Design guidelines.
-		//bindPreferenceSummaryToValue(findPreference("example_list"));
 		bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
 		bindPreferenceSummaryToValue(findPreference("ip"));
 		bindPreferenceSummaryToValue(findPreference("num_sensors"));
 		
-		if (flag){
-			Toast.makeText(this, "HOLA", Toast.LENGTH_LONG).show();
-		}
 	}
 
 	/** {@inheritDoc} */
@@ -166,8 +162,6 @@ public class SettingsActivity extends PreferenceActivity {
 						.setSummary(index >= 0 ? listPreference.getEntries()[index]
 								: null);
 				
-				flag = true;
-				
 				// when update this value it is necessary to re-start the app.
 			/*	FragmentManager fragmentManager = getSupportFragmentManager();
 		           DialogoAlerta dialogo = new DialogoAlerta();
@@ -240,6 +234,7 @@ public class SettingsActivity extends PreferenceActivity {
 				PreferenceManager.getDefaultSharedPreferences(
 						preference.getContext()).getString(preference.getKey(),
 						""));
+		
 	}
 
 	/**

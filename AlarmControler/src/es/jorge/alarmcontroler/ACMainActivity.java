@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ACMainActivity extends FragmentActivity {
 
@@ -39,13 +40,19 @@ public class ACMainActivity extends FragmentActivity {
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
+	
+	// local copy of preferences
+	SharedPreferences pref;
+	
+	// store number of sensors
+	private int Sensors = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_acmain);
 
-		// Create the adapter that will return a fragment for each of the three
+		// Create the adapter that will return a fragment for each of the
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
 				getSupportFragmentManager());
@@ -54,9 +61,25 @@ public class ACMainActivity extends FragmentActivity {
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 		
-
 	}
+		
+	@Override
+	protected void onRestart (){
+		super.onRestart();
 
+		// take the new number of sensors
+//		SharedPreferences pref =
+//				PreferenceManager.getDefaultSharedPreferences(ACMainActivity.this);			
+		String NumSensors = pref.getString("num_sensors","");
+
+		// check if the number of sensors was changed
+		if (Sensors != Integer.valueOf(NumSensors)){
+			// update viewPager
+			mSectionsPagerAdapter.notifyDataSetChanged();
+			Toast.makeText(this, "ACTUALIZAMOS NUM SENSORES", Toast.LENGTH_SHORT).show();
+		}		
+		Toast.makeText(this, NumSensors, Toast.LENGTH_SHORT).show();
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -66,9 +89,8 @@ public class ACMainActivity extends FragmentActivity {
 	
 	// launch the setting activity
 	public void lanzarSettingsActivity(View view) {
-
 		Intent i = new Intent(this, SettingsActivity.class);
-		startActivity(i);
+		startActivity(i);		
 	}
 
 	// to catch the settings menu selection
@@ -79,6 +101,7 @@ public class ACMainActivity extends FragmentActivity {
 			lanzarSettingsActivity(null);
 			break;
 		}
+		
 		return true;
 		/** true -> consumimos el item, no se propaga */
 	}
@@ -91,6 +114,13 @@ public class ACMainActivity extends FragmentActivity {
 
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
+			
+			// store the initial number of sensors
+			pref = PreferenceManager.getDefaultSharedPreferences(ACMainActivity.this);			
+			String NumSensors = pref.getString("num_sensors","");
+			// change from String to an Int
+			Sensors = Integer.valueOf(NumSensors);
+
 		}
 
 		@Override
@@ -98,18 +128,22 @@ public class ACMainActivity extends FragmentActivity {
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
+			// get number of sensors
+			
 			Fragment fragment = new MainControlFragment();
 			Bundle args = new Bundle();
 			args.putInt(MainControlFragment.ARG_SECTION_NUMBER, position + 1);
 			fragment.setArguments(args);
+
 			return fragment;
 		}
 
 		@Override
 		public int getCount() {		
 	        // get number of sensors
-			SharedPreferences pref =
-		            PreferenceManager.getDefaultSharedPreferences(ACMainActivity.this);			
+//			SharedPreferences pref =
+//		            PreferenceManager.getDefaultSharedPreferences(ACMainActivity.this);		
+			
 			String NumSensors = pref.getString("num_sensors","");
 			
 			return NumSensors == null ? -1 : (Integer.valueOf(NumSensors) + 1);
@@ -145,6 +179,7 @@ public class ACMainActivity extends FragmentActivity {
 			}
 			return null;
 		}
+		
 	}
 
 	/**
@@ -173,5 +208,6 @@ public class ACMainActivity extends FragmentActivity {
 			return rootView;
 		}
 	}
+	
 
 }
