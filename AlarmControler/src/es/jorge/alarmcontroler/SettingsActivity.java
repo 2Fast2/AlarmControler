@@ -51,8 +51,19 @@ public class SettingsActivity extends PreferenceActivity {
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
 
-		setupSimplePreferencesScreen();
+	//	setupSimplePreferencesScreen();
+		// put general preference fragment
+//		getFragmentManager().beginTransaction().replace(android.R.id.content,
+//				new GeneralPreferenceFragment()).commit();
 		
+		// put notifications preference fragment
+//		getFragmentManager().beginTransaction().replace(android.R.id.content,
+//				new NotificationPreferenceFragment()).commit();
+		
+		// put sensors preference fragment
+//		getFragmentManager().beginTransaction().replace(android.R.id.content,
+//				new SensorsPreferenceFragment()).commit();
+
 	}
 	
 		
@@ -69,14 +80,24 @@ public class SettingsActivity extends PreferenceActivity {
 		// In the simplified UI, fragments are not used at all and we instead
 		// use the older PreferenceActivity APIs.
 
-		// Add 'general' preferences.
+		// Add 'general' preferences and corresponding header.
+		PreferenceCategory GenHeader = new PreferenceCategory(this);
+		GenHeader.setTitle(R.string.pref_header_general);
+		getPreferenceScreen().addPreference(GenHeader);
 		addPreferencesFromResource(R.xml.pref_general);
 
 		// Add 'notifications' preferences, and a corresponding header.
-		PreferenceCategory fakeHeader = new PreferenceCategory(this);
-		fakeHeader.setTitle(R.string.pref_header_notifications);
-		getPreferenceScreen().addPreference(fakeHeader);
+		PreferenceCategory NotifHeader = new PreferenceCategory(this);
+		NotifHeader.setTitle(R.string.pref_header_notifications);
+		getPreferenceScreen().addPreference(NotifHeader);
 		addPreferencesFromResource(R.xml.pref_notification);
+		
+		// Add 'sensors' preferences, and corresponding header.
+		PreferenceCategory SensorHeader = new PreferenceCategory(this);
+		SensorHeader.setTitle(R.string.pref_header_sensors);
+		getPreferenceScreen().addPreference(SensorHeader);
+		addPreferencesFromResource(R.xml.pref_sensors);
+		
 
 		// Bind the summaries of EditText/List/Dialog/Ringtone preferences to
 		// their values. When their values change, their summaries are updated
@@ -114,34 +135,16 @@ public class SettingsActivity extends PreferenceActivity {
 				|| !isXLargeTablet(context);
 	}
 
-	/** {@inheritDoc} */
+	/**
+     * Populate the activity with the top-level headers.
+     */
 	@Override
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	//@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public void onBuildHeaders(List<Header> target) {
-		if (!isSimplePreferences(this)) {
+		
 			loadHeadersFromResource(R.xml.pref_headers, target);
-		}
 	}
 	
-/*	public static class DialogoAlerta extends DialogFragment {
-	    @Override
-	    public Dialog onCreateDialog(Bundle savedInstanceState) {
-	 
-	        AlertDialog.Builder builder =
-	                new AlertDialog.Builder(getActivity());
-	 
-	        builder.setMessage("Esto es un mensaje de alerta.")
-	               .setTitle("Información")
-	               .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-	                   public void onClick(DialogInterface dialog, int id) {
-	                       dialog.cancel();
-	                   }
-	               });
-	 
-	        return builder.create();
-	    }
-	}
-*/
 	/**
 	 * A preference value change listener that updates the preference's summary
 	 * to reflect its new value.
@@ -162,25 +165,6 @@ public class SettingsActivity extends PreferenceActivity {
 						.setSummary(index >= 0 ? listPreference.getEntries()[index]
 								: null);
 				
-				// when update this value it is necessary to re-start the app.
-			/*	FragmentManager fragmentManager = getSupportFragmentManager();
-		           DialogoAlerta dialogo = new DialogoAlerta();
-		        dialogo.show(fragmentManager, "tagAlerta");
-		    */   
-		/*        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		        builder.setMessage("Ejemplo de Mensaje Popup para Android OS desde Devtroce.com")
-		                .setTitle("Atención!!")
-		                .setCancelable(false)
-		                .setNeutralButton("Aceptar",
-		                        new DialogInterface.OnClickListener() {
-		                            public void onClick(DialogInterface dialog, int id) {
-		                                dialog.cancel();
-		                            }
-		                        });
-		        AlertDialog alert = builder.create();
-		        alert.show();
-*/
-			
 			} else if (preference instanceof RingtonePreference) {
 				// For ringtone preferences, look up the correct display value
 				// using RingtoneManager.
@@ -278,4 +262,58 @@ public class SettingsActivity extends PreferenceActivity {
 		}
 	}
 	**/
+	
+	/**
+     * This fragment shows the preferences for the general settings.
+     */
+    public static class GeneralPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            // Load the preferences from an XML resource
+            addPreferencesFromResource(R.xml.pref_general);
+            
+            // Bind the summaries of IP number preferences to
+    		// their values. When their values change, their summaries are updated
+    		// to reflect the new value, per the Android Design guidelines.
+            bindPreferenceSummaryToValue(findPreference("ip"));
+        }
+    }
+    
+    /**
+     * This fragment shows the preferences for the notification settings.
+     */
+    public static class NotificationPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            // Load the preferences from an XML resource
+            addPreferencesFromResource(R.xml.pref_notification);
+            
+            // Bind the summaries of Ringtone preferences to
+    		// their values. When their values change, their summaries are updated
+    		// to reflect the new value, per the Android Design guidelines.
+            bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
+        }
+    }
+    
+    /**
+     * This fragment shows the preferences for the sensors settings.
+     */
+    public static class SensorsPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            // Load the preferences from an XML resource
+            addPreferencesFromResource(R.xml.pref_sensors);
+            
+            // Bind the summaries of unmber of sensors preferences to
+    		// their values. When their values change, their summaries are updated
+    		// to reflect the new value, per the Android Design guidelines.
+            bindPreferenceSummaryToValue(findPreference("num_sensors"));
+        }
+    }
 }

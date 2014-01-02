@@ -1,0 +1,11 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+     <!-- Number of sensors -->
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/pref_number_sensors_titles"
+        android:entryValues="@array/pref_number_sensors_values"
+        android:key="num_sensors"
+        android:title="@string/pref_title_number_sensors" />
+            
+</PreferenceScreen>

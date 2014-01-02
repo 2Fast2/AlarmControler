@@ -8,5 +8,8 @@
     <header
         android:fragment="es.jorge.alarmcontroler.SettingsActivity$NotificationPreferenceFragment"
         android:title="@string/pref_header_notifications" />
+    <header
+        android:fragment="es.jorge.alarmcontroler.SettingsActivity$SensorsPreferenceFragment"
+        android:title="@string/pref_header_sensors" />
 
 </preference-headers>

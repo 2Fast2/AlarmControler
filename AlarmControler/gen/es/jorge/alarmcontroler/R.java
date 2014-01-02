@@ -50,15 +50,18 @@ public final class R {
  General settings 
          */
         public static final int pref_header_general=0x7f06000e;
-        /**  Example settings for Notifications 
+        /**  Settings for Notifications 
          */
-        public static final int pref_header_notifications=0x7f060012;
+        public static final int pref_header_notifications=0x7f060011;
+        /**  Sensors 
+         */
+        public static final int pref_header_sensors=0x7f060016;
         public static final int pref_ip=0x7f060010;
-        public static final int pref_ringtone_silent=0x7f060016;
-        public static final int pref_title_new_message_notifications=0x7f060013;
-        public static final int pref_title_number_sensors=0x7f060011;
-        public static final int pref_title_ringtone=0x7f060014;
-        public static final int pref_title_vibrate=0x7f060015;
+        public static final int pref_ringtone_silent=0x7f060015;
+        public static final int pref_title_new_message_notifications=0x7f060012;
+        public static final int pref_title_number_sensors=0x7f060017;
+        public static final int pref_title_ringtone=0x7f060013;
+        public static final int pref_title_vibrate=0x7f060014;
         public static final int title_activity_settings=0x7f06000d;
         public static final int title_section1=0x7f060002;
         public static final int title_section10=0x7f06000b;
@@ -104,5 +107,6 @@ public final class R {
         public static final int pref_general=0x7f040000;
         public static final int pref_headers=0x7f040001;
         public static final int pref_notification=0x7f040002;
+        public static final int pref_sensors=0x7f040003;
     }
 }
