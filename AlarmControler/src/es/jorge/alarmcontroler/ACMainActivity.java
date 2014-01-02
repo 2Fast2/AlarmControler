@@ -67,9 +67,7 @@ public class ACMainActivity extends FragmentActivity {
 	protected void onRestart (){
 		super.onRestart();
 
-		// take the new number of sensors
-//		SharedPreferences pref =
-//				PreferenceManager.getDefaultSharedPreferences(ACMainActivity.this);			
+		// take the new number of sensors		
 		String NumSensors = pref.getString("num_sensors","");
 
 		// check if the number of sensors was changed
@@ -120,30 +118,27 @@ public class ACMainActivity extends FragmentActivity {
 			String NumSensors = pref.getString("num_sensors","");
 			// change from String to an Int
 			Sensors = Integer.valueOf(NumSensors);
-
 		}
 
 		@Override
 		public Fragment getItem(int position) {
 			// getItem is called to instantiate the fragment for the given page.
-			// Return a DummySectionFragment (defined as a static inner class
-			// below) with the page number as its lone argument.
-			// get number of sensors
-			
-			Fragment fragment = new MainControlFragment();
-			Bundle args = new Bundle();
-			args.putInt(MainControlFragment.ARG_SECTION_NUMBER, position + 1);
-			fragment.setArguments(args);
-
-			return fragment;
+			switch (position) {
+			case 0:
+				// activity for Main control tab
+				Fragment MCfragment = new MainControlFragment();
+				return MCfragment;
+			default:
+				//activity for sensor tabs
+				Fragment SWfragment = new SensorViewFragment();
+				return SWfragment;
+			}
+		
 		}
 
 		@Override
 		public int getCount() {		
 	        // get number of sensors
-//			SharedPreferences pref =
-//		            PreferenceManager.getDefaultSharedPreferences(ACMainActivity.this);		
-			
 			String NumSensors = pref.getString("num_sensors","");
 			
 			return NumSensors == null ? -1 : (Integer.valueOf(NumSensors) + 1);
@@ -183,28 +178,43 @@ public class ACMainActivity extends FragmentActivity {
 	}
 
 	/**
-	 * A dummy fragment representing a section of the app, but that simply
-	 * displays dummy text.
+	 * A main control fragment
 	 */
 	public static class MainControlFragment extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		public static final String ARG_SECTION_NUMBER = "section_number";
-
+		
 		public MainControlFragment() {
 		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_acmain_dummy,
+			View rootView = inflater.inflate(R.layout.fragment_acmain_main_control,
 					container, false);
-			TextView dummyTextView = (TextView) rootView
+			TextView MainControlTextView = (TextView) rootView
 					.findViewById(R.id.section_label);
-			dummyTextView.setText(Integer.toString(getArguments().getInt(
-					ARG_SECTION_NUMBER)));
+//			MainControlTextView.setText(Integer.toString(getArguments().getInt(
+//					ARG_SECTION_NUMBER)));
+			return rootView;
+		}
+	}
+	
+	/**
+	 * A sensor view fragment
+	 */
+	public static class SensorViewFragment extends Fragment {
+		
+		public SensorViewFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_acmain_sensor_view,
+					container, false);
+			TextView SensorViewTextView = (TextView) rootView
+					.findViewById(R.id.section_label);
+//			MainControlTextView.setText(Integer.toString(getArguments().getInt(
+//					ARG_SECTION_NUMBER)));
 			return rootView;
 		}
 	}

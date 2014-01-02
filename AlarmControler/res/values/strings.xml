@@ -14,5 +14,13 @@
     <string name="title_section9">Sensor 8</string>
     <string name="title_section10">Sensor 9</string>
     <string name="title_section11">Sensor 10</string>
+    
+    <!-- Main Control tab strings -->
+    <string name="SwitchOnOff">Power Alarm</string>
+    <string name="RefreshButton">Data Refresh</string>
+    
+    <!-- Sensor tab strings -->
+    <string name="SensorSwitchOnOff">Sensor Powered</string>
+    <string name="SensorStatus">Status</string>
 
 </resources>
