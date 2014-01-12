@@ -112,12 +112,17 @@ public class ACMainActivity extends FragmentActivity {
 
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
-			
+
 			// store the initial number of sensors
 			pref = PreferenceManager.getDefaultSharedPreferences(ACMainActivity.this);			
 			String NumSensors = pref.getString("num_sensors","");
-			// change from String to an Int
-			Sensors = Integer.valueOf(NumSensors);
+			if (NumSensors == ""){
+				Sensors = 1;
+			}else{
+				// change from String to an Int
+				Sensors = Integer.valueOf(NumSensors);
+			}
+
 		}
 
 		@Override
@@ -141,7 +146,7 @@ public class ACMainActivity extends FragmentActivity {
 	        // get number of sensors
 			String NumSensors = pref.getString("num_sensors","");
 			
-			return NumSensors == null ? -1 : (Integer.valueOf(NumSensors) + 1);
+			return NumSensors == "" ? 1 : (Integer.valueOf(NumSensors) + 1);
 		}
 
 		@Override
