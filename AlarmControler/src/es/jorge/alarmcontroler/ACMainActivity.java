@@ -1,5 +1,9 @@
 package es.jorge.alarmcontroler;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Locale;
 
 import es.jorge.alarmcontroler.R;
@@ -15,14 +19,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.AlertDialog;
+
 
 public class ACMainActivity extends FragmentActivity {
 
@@ -46,6 +55,28 @@ public class ACMainActivity extends FragmentActivity {
 	
 	// store number of sensors
 	private int Sensors = 0;
+	
+	// socket name
+	private Socket socket;
+
+	// server port connection
+	private static final int SERVERPORT = 5000;
+	// server IP, this must be the same as the IP in the configuration
+	// this value is a default value
+	private static String SERVER_IP = "192.168.1.40";
+	
+	// Para ver la IP remota
+	String IP;
+	int Port;
+	private Button btDataRefresh;
+	
+	
+	
+	private void log(String string) {
+		//
+		Toast.makeText(this, (string), Toast.LENGTH_LONG).show();
+	}
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,23 +92,48 @@ public class ACMainActivity extends FragmentActivity {
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 		
-	}
+		// start the thread that connect to the server.
+		new Thread(new ClientThread()).start();
 		
+
+	/*	btDataRefresh = (Button) findViewById(R.id.Data_Ref);
+		
+		
+		btDataRefresh.setOnClickListener(new OnClickListener() {
+			@Override
+			// conectar
+			public void onClick(View v) {
+								
+				//click_data_refresh();
+				Log.d("Estamos","Aqui");
+				
+			}
+		});*/
+
+	}
+	
+			
 	@Override
 	protected void onRestart (){
 		super.onRestart();
 
 		// take the new number of sensors		
-		String NumSensors = pref.getString("num_sensors","");
+		String NumSensors = pref.getString("num_sensors",""); 
 
 		// check if the number of sensors was changed
 		if (Sensors != Integer.valueOf(NumSensors)){
-			// update viewPager
+			// update viewPager with the new number of sensors
 			mSectionsPagerAdapter.notifyDataSetChanged();
+			// update sensors value
+			Sensors = Integer.valueOf(NumSensors);
 			Toast.makeText(this, "ACTUALIZAMOS NUM SENSORES", Toast.LENGTH_SHORT).show();
 		}		
 		Toast.makeText(this, NumSensors, Toast.LENGTH_SHORT).show();
 	}
+	
+	// HAY QUE CREAR UN SERVICIO DE QUE CUANDO SE DESTRUYA LIBERE LA CONEXIÓN
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -114,7 +170,9 @@ public class ACMainActivity extends FragmentActivity {
 			super(fm);
 
 			// store the initial number of sensors
-			pref = PreferenceManager.getDefaultSharedPreferences(ACMainActivity.this);			
+			pref = PreferenceManager.getDefaultSharedPreferences(ACMainActivity.this);	// esto se puede meter en la función de getcount o en el OnCreate	
+					
+			//////// esto se puede sustituir por la llamada a getCount
 			String NumSensors = pref.getString("num_sensors","");
 			if (NumSensors == ""){
 				Sensors = 1;
@@ -122,6 +180,7 @@ public class ACMainActivity extends FragmentActivity {
 				// change from String to an Int
 				Sensors = Integer.valueOf(NumSensors);
 			}
+			/////////////////////////////////
 
 		}
 
@@ -222,6 +281,55 @@ public class ACMainActivity extends FragmentActivity {
 //					ARG_SECTION_NUMBER)));
 			return rootView;
 		}
+	}
+	
+	
+	public void click_data_refresh(View view){
+		
+		
+		IP = socket.getInetAddress().toString();
+		Port = socket.getPort();
+		
+		Log.d("IP: ",IP);
+		Log.d("Puerto",Integer.toString(Port));
+		
+		String msg = "IP: " + IP + " Puerto: " + Port;
+		
+         // a provisional alert box to see the IP and port connected	
+		 new AlertDialog.Builder(this)
+         .setMessage(msg)
+         .setPositiveButton("OK", null)
+         .show();
+		
+	}
+	
+	class ClientThread implements Runnable {
+		
+		
+
+		@Override
+		public void run() {
+
+			try {
+				
+				// AÑADIR QUE PRIMERO MIRE SI HAY CONEXION A INET
+				// Y SI LA HAY CONECTARSE, SINO DEVOLVER UN MSGBOX
+				// ADVIRTIENDO DEL ERROR
+				InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
+				socket = new Socket(serverAddr, SERVERPORT);
+						
+				
+				
+			} catch (UnknownHostException e1) {
+				Log.e("Error connexion", "" + e1);
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				Log.e("Error connexion", "" + e1);
+				e1.printStackTrace();
+			}
+
+		}
+
 	}
 	
 

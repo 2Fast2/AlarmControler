@@ -29,6 +29,7 @@
         android:layout_alignLeft="@+id/section_label"
         android:layout_below="@+id/switch1"
         android:layout_marginTop="22dp"
+        android:inputType="none"
         android:text="@string/SensorStatus"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

@@ -30,8 +30,8 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
+        public static final int Data_Ref=0x7f0a0004;
         public static final int SettingsActivity=0x7f0a0006;
-        public static final int button1=0x7f0a0004;
         public static final int pager=0x7f0a0000;
         public static final int pager_title_strip=0x7f0a0001;
         public static final int section_label=0x7f0a0002;
