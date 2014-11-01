@@ -66,13 +66,15 @@ public class ACMainActivity extends FragmentActivity {
 	private static final int SERVERPORT = 5000;
 	// server IP, this must be the same as the IP in the configuration
 	// this value is a default value
-	private static String SERVER_IP = "192.168.1.40";
+	private String SERVER_IP = "192.168.1.40";
 	
 	// Para ver la IP remota
 	String IP;
 	int Port;
 	private Button btDataRefresh;
-	
+
+    /* connection thread */
+	private Thread Connection_Thread;
 	
 	
 	private void log(String string) {
@@ -96,7 +98,8 @@ public class ACMainActivity extends FragmentActivity {
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 		
 		// start the thread that connect to the server.
-		new Thread(new ClientThread()).start();
+        Connection_Thread = new Thread(new ClientThread());
+        Connection_Thread.start();
 		
 
 	/*	btDataRefresh = (Button) findViewById(R.id.Data_Ref);
@@ -120,8 +123,9 @@ public class ACMainActivity extends FragmentActivity {
 	protected void onRestart (){
 		super.onRestart();
 
+        Thread.State State;
 		// take the new number of sensors		
-		String NumSensors = pref.getString("num_sensors",""); 
+		String NumSensors = pref.getString("num_sensors","");
 
 		// check if the number of sensors was changed
 		if (Sensors != Integer.valueOf(NumSensors)){
@@ -132,9 +136,39 @@ public class ACMainActivity extends FragmentActivity {
 			Toast.makeText(this, "ACTUALIZAMOS NUM SENSORES", Toast.LENGTH_SHORT).show();
 		}		
 		Toast.makeText(this, NumSensors, Toast.LENGTH_SHORT).show();
+
+        // take IP server
+        String New_Server_IP = pref.getString("ip","");
+
+        // check server ip changes
+        if(SERVER_IP != New_Server_IP){
+            // update server ip
+            SERVER_IP = New_Server_IP;
+            Toast.makeText(this, SERVER_IP, Toast.LENGTH_SHORT).show();
+            /* after change the server ip try to connect to the new server ip */
+            if (socket != null) {
+                /* the socket is connected. Close the socket */
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+             /* connect again to the new ip server */
+            State = Connection_Thread.getState();
+
+            Toast.makeText(this,State.toString() , Toast.LENGTH_SHORT).show();
+
+            Connection_Thread = new Thread(new ClientThread());
+            Connection_Thread.start();
+
+
+
+        }
 	}
 	
-	// HAY QUE CREAR UN SERVICIO DE QUE CUANDO SE DESTRUYA LIBERE LA CONEXI�N
+	// TODO HAY QUE CREAR UN SERVICIO DE QUE CUANDO SE DESTRUYA LIBERE LA CONEXI�N
 	
 	
 	@Override
@@ -285,11 +319,19 @@ public class ACMainActivity extends FragmentActivity {
 			return rootView;
 		}
 	}
-	
+
+    public void Alert_Message (String Message)
+    {
+        new AlertDialog.Builder(this)
+                .setMessage(Message)
+                .setPositiveButton("OK", null)
+                .show();
+
+    }
 	
 	public void click_data_refresh(View view){
 		
-		if( socket.isConnected()) {
+		if( socket != null ) {
             IP = socket.getInetAddress().toString();
             Port = socket.getPort();
 
@@ -299,15 +341,19 @@ public class ACMainActivity extends FragmentActivity {
             String msg = "IP: " + IP + " Puerto: " + Port;
 
             // a provisional alert box to see the IP and port connected
-            new AlertDialog.Builder(this)
+           /* new AlertDialog.Builder(this)
                     .setMessage(msg)
                     .setPositiveButton("OK", null)
                     .show();
+                    */
+            Alert_Message(msg);
         }else{
-            new AlertDialog.Builder(this)
+           /* new AlertDialog.Builder(this)
                     .setMessage("THE SOCKET IS NOT CONNECTED")
                     .setPositiveButton("OK", null)
                     .show();
+*/
+            Alert_Message("THE SOCKET IS NOT CONNECTED");
         }
 		
 	}
@@ -329,25 +375,31 @@ public class ACMainActivity extends FragmentActivity {
 	
 		@Override
 		public void run() {
-			
-			String Ser_Ip = "000.000.000.000"; // TODO PARA COGER LA IP QUE HAY EN LA CONFIGURACION
 
 			try {
 
                 // take the IP number from the preferences
-                Ser_Ip = pref.getString("ip","");
+                SERVER_IP = pref.getString("ip","");
 				/*
 				A�ADIR QUE PRIMERO MIRE SI HAY CONEXION A INET
 				Y SI LA HAY CONECTARSE, SINO DEVOLVER UN MSGBOX
 				ADVIRTIENDO DEL ERROR
 				check if the phone is connected to any network
 				*/
-                if (isNetworkConnected()){
+                /* Check if there are any network connected and there are
+                 any server ip specified*/
+                if (isNetworkConnected() && (SERVER_IP != "") ){
 					// try to connect to the server
-					InetAddress serverAddr = InetAddress.getByName(Ser_Ip);
-					socket = new Socket(serverAddr, SERVERPORT);
+					InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
+                    /* check if the server is reachable and connect if it is */
+                    if (serverAddr.isReachable(2000)) {
+                        socket = new Socket(serverAddr, SERVERPORT);
+                   }else{
+                        return;
+                    }
 				}else{
 					// no connection
+                    return;
 
 /* TODO NO SE SACAR UN ALERT DIALOG DESDE EL HILO
 					AlertDialog.Builder builder = new AlertDialog.Builder(ACMainActivity.this);
@@ -355,6 +407,7 @@ public class ACMainActivity extends FragmentActivity {
 			         .setPositiveButton("OK", null)
 			         .show();
 */
+
 
 				}
 
