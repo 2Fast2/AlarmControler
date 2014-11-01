@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Casa\git\AlarmControler\AlarmControler\libs\android-support-v4.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="5896b0a4e377ac4242eb2bc785220c1c4fc052f4">
+        <dex dex="C:\Users\Casa\git\AlarmControler\AlarmControler\build\intermediates\pre-dexed\debug\android-support-v4-c7d0d71ff3dd28b1884de538b97a91930899792c.jar" />
+    </item>
+
+</items>

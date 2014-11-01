@@ -9,8 +9,11 @@ import java.util.Locale;
 import es.jorge.alarmcontroler.R;
 import es.jorge.alarmcontroler.SettingsActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -131,7 +134,7 @@ public class ACMainActivity extends FragmentActivity {
 		Toast.makeText(this, NumSensors, Toast.LENGTH_SHORT).show();
 	}
 	
-	// HAY QUE CREAR UN SERVICIO DE QUE CUANDO SE DESTRUYA LIBERE LA CONEXIÓN
+	// HAY QUE CREAR UN SERVICIO DE QUE CUANDO SE DESTRUYA LIBERE LA CONEXIï¿½N
 	
 	
 	@Override
@@ -170,7 +173,7 @@ public class ACMainActivity extends FragmentActivity {
 			super(fm);
 
 			// store the initial number of sensors
-			pref = PreferenceManager.getDefaultSharedPreferences(ACMainActivity.this);	// esto se puede meter en la función de getcount o en el OnCreate	
+			pref = PreferenceManager.getDefaultSharedPreferences(ACMainActivity.this);	// esto se puede meter en la funciï¿½n de getcount o en el OnCreate	
 					
 			//////// esto se puede sustituir por la llamada a getCount
 			String NumSensors = pref.getString("num_sensors","");
@@ -286,40 +289,75 @@ public class ACMainActivity extends FragmentActivity {
 	
 	public void click_data_refresh(View view){
 		
-		
-		IP = socket.getInetAddress().toString();
-		Port = socket.getPort();
-		
-		Log.d("IP: ",IP);
-		Log.d("Puerto",Integer.toString(Port));
-		
-		String msg = "IP: " + IP + " Puerto: " + Port;
-		
-         // a provisional alert box to see the IP and port connected	
-		 new AlertDialog.Builder(this)
-         .setMessage(msg)
-         .setPositiveButton("OK", null)
-         .show();
+		if( socket.isConnected()) {
+            IP = socket.getInetAddress().toString();
+            Port = socket.getPort();
+
+            Log.d("IP: ", IP);
+            Log.d("Puerto", Integer.toString(Port));
+
+            String msg = "IP: " + IP + " Puerto: " + Port;
+
+            // a provisional alert box to see the IP and port connected
+            new AlertDialog.Builder(this)
+                    .setMessage(msg)
+                    .setPositiveButton("OK", null)
+                    .show();
+        }else{
+            new AlertDialog.Builder(this)
+                    .setMessage("THE SOCKET IS NOT CONNECTED")
+                    .setPositiveButton("OK", null)
+                    .show();
+        }
 		
 	}
 	
+	// Check if the phone is connected to any network
+	private boolean isNetworkConnected() {
+		  ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		  NetworkInfo ni = cm.getActiveNetworkInfo();
+		  if (ni == null) {
+		   // There are no active networks.
+		   return false;
+		  } else
+			  // there are active networks
+		   return true;
+		 }
+	
+	// Thread to connect to the server.
 	class ClientThread implements Runnable {
-		
-		
-
+	
 		@Override
 		public void run() {
+			
+			String Ser_Ip = "000.000.000.000"; // TODO PARA COGER LA IP QUE HAY EN LA CONFIGURACION
 
 			try {
-				
-				// AÑADIR QUE PRIMERO MIRE SI HAY CONEXION A INET
-				// Y SI LA HAY CONECTARSE, SINO DEVOLVER UN MSGBOX
-				// ADVIRTIENDO DEL ERROR
-				InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
-				socket = new Socket(serverAddr, SERVERPORT);
-						
-				
-				
+
+                // take the IP number from the preferences
+                Ser_Ip = pref.getString("ip","");
+				/*
+				Aï¿½ADIR QUE PRIMERO MIRE SI HAY CONEXION A INET
+				Y SI LA HAY CONECTARSE, SINO DEVOLVER UN MSGBOX
+				ADVIRTIENDO DEL ERROR
+				check if the phone is connected to any network
+				*/
+                if (isNetworkConnected()){
+					// try to connect to the server
+					InetAddress serverAddr = InetAddress.getByName(Ser_Ip);
+					socket = new Socket(serverAddr, SERVERPORT);
+				}else{
+					// no connection
+
+/* TODO NO SE SACAR UN ALERT DIALOG DESDE EL HILO
+					AlertDialog.Builder builder = new AlertDialog.Builder(ACMainActivity.this);
+					builder.setMessage("There are no networkts available")
+			         .setPositiveButton("OK", null)
+			         .show();
+*/
+
+				}
+
 			} catch (UnknownHostException e1) {
 				Log.e("Error connexion", "" + e1);
 				e1.printStackTrace();

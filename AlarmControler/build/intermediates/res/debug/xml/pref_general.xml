@@ -1,0 +1,19 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory>
+        android:title="@string/pref_header_general"
+
+        <!-- IP number of the Main controler -->
+        <EditTextPreference
+            android:capitalize="words"
+            android:defaultValue="@string/pref_default_ip"
+            android:inputType="textCapWords"
+            android:key="ip"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/pref_ip" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
+<!-- From: file:/C:/Users/Casa/git/AlarmControler/AlarmControler/res/xml/pref_general.xml -->
