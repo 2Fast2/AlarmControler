@@ -1,14 +1,6 @@
 package es.jorge.alarmcontroler;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.Locale;
-
-import es.jorge.alarmcontroler.R;
-import es.jorge.alarmcontroler.SettingsActivity;
-
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,20 +12,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.app.AlertDialog;
+
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Locale;
 
 
 public class ACMainActivity extends FragmentActivity {
@@ -75,6 +66,8 @@ public class ACMainActivity extends FragmentActivity {
 
     /* connection thread */
 	private Thread Connection_Thread;
+
+    private static boolean Is_Connected = false;
 	
 	
 	private void log(String string) {
@@ -100,30 +93,60 @@ public class ACMainActivity extends FragmentActivity {
 		// start the thread that connect to the server.
         Connection_Thread = new Thread(new ClientThread());
         Connection_Thread.start();
-		
-
-	/*	btDataRefresh = (Button) findViewById(R.id.Data_Ref);
-		
-		
-		btDataRefresh.setOnClickListener(new OnClickListener() {
-			@Override
-			// conectar
-			public void onClick(View v) {
-								
-				//click_data_refresh();
-				Log.d("Estamos","Aqui");
-				
-			}
-		});*/
-
 	}
-	
+
+    public void Reconnection (){
+
+        Thread.State State;
+
+        // take IP server
+        String New_Server_IP = pref.getString("ip","");
+
+        // check server ip changes
+        if(SERVER_IP != New_Server_IP) {
+            // update server ip
+            SERVER_IP = New_Server_IP;
+            Toast.makeText(this, SERVER_IP, Toast.LENGTH_SHORT).show();
+            /* after change the server ip try to connect to the new server ip */
+            if (socket != null) {
+                /* the socket is connected. Close the socket */
+                try {
+                    socket.close();
+                    MainControlFragment.Change_Reconnected_Button_BG(0xFFFF0000);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+             /* connect again to the new ip server */
+            State = Connection_Thread.getState();
+
+            Toast.makeText(this,State.toString() , Toast.LENGTH_SHORT).show();
+
+            Connection_Thread = new Thread(new ClientThread());
+            Connection_Thread.start();
+
+    }
+
+    protected void onDestroy(){
+        super.onDestroy();
+
+        /* release the connection */
+        try {
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (socket.isClosed()){
+            Toast.makeText(this,"SOCKET RELEASE" , Toast.LENGTH_SHORT).show();
+        }
+    }
 			
 	@Override
 	protected void onRestart (){
 		super.onRestart();
 
-        Thread.State State;
+
 		// take the new number of sensors		
 		String NumSensors = pref.getString("num_sensors","");
 
@@ -137,40 +160,11 @@ public class ACMainActivity extends FragmentActivity {
 		}		
 		Toast.makeText(this, NumSensors, Toast.LENGTH_SHORT).show();
 
-        // take IP server
-        String New_Server_IP = pref.getString("ip","");
+        /* reconnect with the server */
+        Reconnection();
 
-        // check server ip changes
-        if(SERVER_IP != New_Server_IP){
-            // update server ip
-            SERVER_IP = New_Server_IP;
-            Toast.makeText(this, SERVER_IP, Toast.LENGTH_SHORT).show();
-            /* after change the server ip try to connect to the new server ip */
-            if (socket != null) {
-                /* the socket is connected. Close the socket */
-                try {
-                    socket.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-             /* connect again to the new ip server */
-            State = Connection_Thread.getState();
-
-            Toast.makeText(this,State.toString() , Toast.LENGTH_SHORT).show();
-
-            Connection_Thread = new Thread(new ClientThread());
-            Connection_Thread.start();
-
-
-
-        }
 	}
-	
-	// TODO HAY QUE CREAR UN SERVICIO DE QUE CUANDO SE DESTRUYA LIBERE LA CONEXI�N
-	
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -211,7 +205,7 @@ public class ACMainActivity extends FragmentActivity {
 					
 			//////// esto se puede sustituir por la llamada a getCount
 			String NumSensors = pref.getString("num_sensors","");
-			if (NumSensors == ""){
+			if (NumSensors.equals("")){
 				Sensors = 1;
 			}else{
 				// change from String to an Int
@@ -278,48 +272,6 @@ public class ACMainActivity extends FragmentActivity {
 		
 	}
 
-	/**
-	 * A main control fragment
-	 */
-	public static class MainControlFragment extends Fragment {
-		
-		public MainControlFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_acmain_main_control,
-					container, false);
-			TextView MainControlTextView = (TextView) rootView
-					.findViewById(R.id.section_label);
-//			MainControlTextView.setText(Integer.toString(getArguments().getInt(
-//					ARG_SECTION_NUMBER)));
-			return rootView;
-		}
-	}
-	
-	/**
-	 * A sensor view fragment
-	 */
-	public static class SensorViewFragment extends Fragment {
-		
-		public SensorViewFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_acmain_sensor_view,
-					container, false);
-			TextView SensorViewTextView = (TextView) rootView
-					.findViewById(R.id.section_label);
-//			MainControlTextView.setText(Integer.toString(getArguments().getInt(
-//					ARG_SECTION_NUMBER)));
-			return rootView;
-		}
-	}
-
     public void Alert_Message (String Message)
     {
         new AlertDialog.Builder(this)
@@ -327,6 +279,10 @@ public class ACMainActivity extends FragmentActivity {
                 .setPositiveButton("OK", null)
                 .show();
 
+    }
+
+    public static boolean Get_Is_Connected(){
+        return Is_Connected;
     }
 	
 	public void click_data_refresh(View view){
@@ -353,7 +309,11 @@ public class ACMainActivity extends FragmentActivity {
                     .setPositiveButton("OK", null)
                     .show();
 */
-            Alert_Message("THE SOCKET IS NOT CONNECTED");
+            Alert_Message("the socket is not connected");
+
+            /* reconnect with the server */
+            Reconnection();
+
         }
 		
 	}
@@ -369,59 +329,83 @@ public class ACMainActivity extends FragmentActivity {
 			  // there are active networks
 		   return true;
 		 }
+
+
 	
 	// Thread to connect to the server.
 	class ClientThread implements Runnable {
-	
-		@Override
-		public void run() {
 
-			try {
+        @Override
+        public void run() {
+
+            // Moves the current Thread into the background
+            android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+
+            try {
 
                 // take the IP number from the preferences
                 SERVER_IP = pref.getString("ip","");
-				/*
-				A�ADIR QUE PRIMERO MIRE SI HAY CONEXION A INET
-				Y SI LA HAY CONECTARSE, SINO DEVOLVER UN MSGBOX
-				ADVIRTIENDO DEL ERROR
-				check if the phone is connected to any network
-				*/
-                /* Check if there are any network connected and there are
-                 any server ip specified*/
+
+        /* Check if there are any network connected and there are
+         any server ip specified*/
                 if (isNetworkConnected() && (SERVER_IP != "") ){
-					// try to connect to the server
-					InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
-                    /* check if the server is reachable and connect if it is */
-                    if (serverAddr.isReachable(2000)) {
-                        socket = new Socket(serverAddr, SERVERPORT);
-                   }else{
-                        return;
-                    }
-				}else{
-					// no connection
-                    return;
+                    // try to connect to the server
+                    InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
+            /* check if the server is reachable and connect if it is */
 
-/* TODO NO SE SACAR UN ALERT DIALOG DESDE EL HILO
-					AlertDialog.Builder builder = new AlertDialog.Builder(ACMainActivity.this);
-					builder.setMessage("There are no networkts available")
-			         .setPositiveButton("OK", null)
-			         .show();
-*/
-
-
-				}
+                    socket = new Socket(serverAddr, SERVERPORT);
+                    if (socket.isBound())
+                        Is_Connected = true;
+                 }else{
+            /* not connected finish the thread*/
+                    Is_Connected = false;
+   				}
 
 			} catch (UnknownHostException e1) {
-				Log.e("Error connexion", "" + e1);
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				Log.e("Error connexion", "" + e1);
-				e1.printStackTrace();
-			}
+            Log.e("Error connexion", "" + e1);
+            e1.printStackTrace();
+            Is_Connected = false;
+            MainControlFragment.Change_Reconnected_Button_BG(0xFFFF0000);
+        } catch (IOException e1) {
+            Log.e("Error connexion", "" + e1);
+            e1.printStackTrace();
+            Is_Connected = false;
+                ACMainActivity.this.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        MainControlFragment.Change_Reconnected_Button_BG(0xFFFF0000);
+Alert_Message("Unable to connect with the server");
+
+                       /* AlertDialog.Builder builder = new AlertDialog.Builder(ACMainActivity.this);
+                        builder.setMessage("Unable to connect with the server")
+                                .setPositiveButton("OK", null)
+                                .show();*/
+                    }
+                });
+
+        }
+
+            if (Is_Connected){
+                ACMainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        /* change o green colour */
+                        MainControlFragment.Change_Reconnected_Button_BG(0xFF00FF00);
+                    }
+                });
+            }else{
+                ACMainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        /* change o red colour */
+                        MainControlFragment.Change_Reconnected_Button_BG(0xFFFF0000);
+                    }
+                });
+            }
 
 		}
 
 	}
-	
 
 }
