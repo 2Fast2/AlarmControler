@@ -36,7 +36,7 @@ public class MainControlFragment extends Fragment {
 //			MainControlTextView.setText(Integer.toString(getArguments().getInt(
 //					ARG_SECTION_NUMBER)));
 
-        Recon_Button = (Button)rootView.findViewById(R.id.Data_Ref);
+        Recon_Button = (Button)rootView.findViewById(R.id.Recon_Button);
 
         /* change the reconnect button colour background */
         if (ACMainActivity.Get_Is_Connected()){

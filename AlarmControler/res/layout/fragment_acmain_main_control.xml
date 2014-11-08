@@ -24,14 +24,14 @@
         android:text="@string/SwitchOnOff" />
 
     <Button
-        android:id="@+id/Data_Ref"
+        android:id="@+id/Recon_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/switch1"
         android:layout_below="@+id/switch1"
         android:layout_marginLeft="52dp"
         android:layout_marginTop="120dp"
-        android:onClick="click_data_refresh"
+        android:onClick="click_data_reconnect"
         android:text="@string/RefreshButton" />
 
 </RelativeLayout>

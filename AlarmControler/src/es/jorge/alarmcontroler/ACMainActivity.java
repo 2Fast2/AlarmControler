@@ -285,7 +285,7 @@ public class ACMainActivity extends FragmentActivity {
         return Is_Connected;
     }
 	
-	public void click_data_refresh(View view){
+	public void click_data_reconnect(View view){
 		
 		if( socket != null ) {
             IP = socket.getInetAddress().toString();
