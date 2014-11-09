@@ -17,7 +17,8 @@
     
     <!-- Main Control tab strings -->
     <string name="SwitchOnOff">Power Alarm</string>
-    <string name="RefreshButton">Data Refresh</string>
+    <string name="RefreshButton">Refresh</string>
+    <string name="ReconnectButton">Reconnect</string>
     
     <!-- Sensor tab strings -->
     <string name="SensorSwitchOnOff">Sensor Powered</string>

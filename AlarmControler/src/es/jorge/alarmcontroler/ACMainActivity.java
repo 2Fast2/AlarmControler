@@ -20,7 +20,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -67,8 +70,12 @@ public class ACMainActivity extends FragmentActivity {
     /* connection thread */
 	private Thread Connection_Thread;
 
+    /* to see if the socket is connected */
     private static boolean Is_Connected = false;
-	
+
+    /* output stream to send the information */
+    OutputStream out;
+    DataOutputStream dout;
 	
 	private void log(String string) {
 		//
@@ -133,6 +140,8 @@ public class ACMainActivity extends FragmentActivity {
 
         /* release the connection */
         try {
+            dout.close();
+            out.close();
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -284,8 +293,33 @@ public class ACMainActivity extends FragmentActivity {
     public static boolean Get_Is_Connected(){
         return Is_Connected;
     }
+
+
+    public void click_data_refresh_button(View view) {
+/* start the thread to send the petition to the alarm */
+
+        /* TODO SOLO PARA PRUEBAS */
+
+        try {
+            out = socket.getOutputStream();
+            dout = new DataOutputStream(out);
+            dout.writeInt(1234);
+            /*dout.writeLong(123L);
+            dout.writeFloat(1.2f);*/
+            //dout.writeChars("Boton1");
+            dout.flush();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "ERROR to send the petition", Toast.LENGTH_SHORT).show();
+        }
+        /* TODO SOLO PARA PRUEBAS */
+
+
+    }
 	
-	public void click_data_reconnect(View view){
+	public void click_reconnect_button(View view){
 		
 		if( socket != null ) {
             IP = socket.getInetAddress().toString();

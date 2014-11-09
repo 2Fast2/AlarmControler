@@ -31,7 +31,19 @@
         android:layout_below="@+id/switch1"
         android:layout_marginLeft="52dp"
         android:layout_marginTop="120dp"
-        android:onClick="click_data_reconnect"
-        android:text="@string/RefreshButton" />
+        android:onClick="click_reconnect_button"
+        android:text="@string/ReconnectButton"
+        android:layout_gravity="center" />
+
+    <Button
+        android:id="@+id/Refresh_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="click_data_refresh_button"
+        android:text="@string/RefreshButton"
+        android:layout_alignBottom="@+id/Recon_Button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="67dp"
+        android:layout_gravity="center" />
 
 </RelativeLayout>
