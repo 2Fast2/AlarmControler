@@ -1,6 +1,7 @@
 package es.jorge.alarmcontroler;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -76,6 +77,9 @@ public class ACMainActivity extends FragmentActivity {
     /* output stream to send the information */
     OutputStream out;
     DataOutputStream dout;
+
+    /* progress circle dialog */
+    private ProgressDialog Circle_Pogress;
 	
 	private void log(String string) {
 		//
@@ -96,7 +100,10 @@ public class ACMainActivity extends FragmentActivity {
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
-		
+
+        /* create the circle progress */
+        Circle_Pogress = new ProgressDialog(this);
+
 		// start the thread that connect to the server.
         Connection_Thread = new Thread(new ClientThread());
         Connection_Thread.start();
@@ -130,6 +137,10 @@ public class ACMainActivity extends FragmentActivity {
 
             Toast.makeText(this,State.toString() , Toast.LENGTH_SHORT).show();
 
+        if (Connection_Thread.isAlive()){
+            /* first close the thread */
+            Connection_Thread.interrupt();
+        }
             Connection_Thread = new Thread(new ClientThread());
             Connection_Thread.start();
 
@@ -301,15 +312,20 @@ public class ACMainActivity extends FragmentActivity {
         /* TODO SOLO PARA PRUEBAS */
 
         try {
-            out = socket.getOutputStream();
-            dout = new DataOutputStream(out);
-            dout.writeInt(1234);
+            if (socket != null) {
+                out = socket.getOutputStream();
+                dout = new DataOutputStream(out);
+                dout.writeInt(1234);
             /*dout.writeLong(123L);
             dout.writeFloat(1.2f);*/
-            //dout.writeChars("Boton1");
-            dout.flush();
+                //dout.writeChars("Boton1");
+                dout.flush();
+            }else{
+                Alert_Message("Not connected with the Alarm. Try to reconnect.");
+            }
         } catch (UnknownHostException e) {
             e.printStackTrace();
+            Toast.makeText(this, "ERROR: Not connected to the Alarm", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this, "ERROR to send the petition", Toast.LENGTH_SHORT).show();
@@ -330,19 +346,9 @@ public class ACMainActivity extends FragmentActivity {
 
             String msg = "IP: " + IP + " Puerto: " + Port;
 
-            // a provisional alert box to see the IP and port connected
-           /* new AlertDialog.Builder(this)
-                    .setMessage(msg)
-                    .setPositiveButton("OK", null)
-                    .show();
-                    */
             Alert_Message(msg);
         }else{
-           /* new AlertDialog.Builder(this)
-                    .setMessage("THE SOCKET IS NOT CONNECTED")
-                    .setPositiveButton("OK", null)
-                    .show();
-*/
+
             Alert_Message("the socket is not connected");
 
             /* reconnect with the server */
@@ -362,8 +368,20 @@ public class ACMainActivity extends FragmentActivity {
 		  } else
 			  // there are active networks
 		   return true;
-		 }
+    }
 
+    // Start circle progress bar
+    public void Start_Circle_Progress(){
+        Circle_Pogress.setMessage("Connecting with the Alarm");
+        Circle_Pogress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        Circle_Pogress.setIndeterminate(true);
+        Circle_Pogress.show();
+    }
+
+    // Stop circle progress bar
+    public void Stop_Circle_Progress(){
+        Circle_Pogress.dismiss();
+    }
 
 	
 	// Thread to connect to the server.
@@ -375,6 +393,13 @@ public class ACMainActivity extends FragmentActivity {
             // Moves the current Thread into the background
             android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
 
+            /* start circle progress bar */
+            ACMainActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                Start_Circle_Progress();
+            }
+                });
             try {
 
                 // take the IP number from the preferences
@@ -399,7 +424,16 @@ public class ACMainActivity extends FragmentActivity {
             Log.e("Error connexion", "" + e1);
             e1.printStackTrace();
             Is_Connected = false;
-            MainControlFragment.Change_Reconnected_Button_BG(0xFFFF0000);
+                ACMainActivity.this.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        Stop_Circle_Progress();
+                        MainControlFragment.Change_Reconnected_Button_BG(0xFFFF0000);
+                        Alert_Message("Unable to connect with the server");
+
+                    }
+                });
         } catch (IOException e1) {
             Log.e("Error connexion", "" + e1);
             e1.printStackTrace();
@@ -408,13 +442,10 @@ public class ACMainActivity extends FragmentActivity {
 
                     @Override
                     public void run() {
+                        Stop_Circle_Progress();
                         MainControlFragment.Change_Reconnected_Button_BG(0xFFFF0000);
-Alert_Message("Unable to connect with the server");
+                 Alert_Message("Unable to connect with the server");
 
-                       /* AlertDialog.Builder builder = new AlertDialog.Builder(ACMainActivity.this);
-                        builder.setMessage("Unable to connect with the server")
-                                .setPositiveButton("OK", null)
-                                .show();*/
                     }
                 });
 
@@ -424,6 +455,7 @@ Alert_Message("Unable to connect with the server");
                 ACMainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        Stop_Circle_Progress();
                         /* change o green colour */
                         MainControlFragment.Change_Reconnected_Button_BG(0xFF00FF00);
                     }
@@ -432,6 +464,7 @@ Alert_Message("Unable to connect with the server");
                 ACMainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        Stop_Circle_Progress();
                         /* change o red colour */
                         MainControlFragment.Change_Reconnected_Button_BG(0xFFFF0000);
                     }
