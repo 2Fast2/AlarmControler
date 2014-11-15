@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -465,7 +466,7 @@ public class ACMainActivity extends FragmentActivity {
                     public void run() {
                         Stop_Circle_Progress();
                         /* change o green colour */
-                        MainControlFragment.Change_Reconnected_Button_BG(0xFF00FF00);
+                        MainControlFragment.Change_Reconnected_Button_BG(Color.GREEN);
                     }
                 });
             }else{
@@ -474,7 +475,7 @@ public class ACMainActivity extends FragmentActivity {
                     public void run() {
                         Stop_Circle_Progress();
                         /* change o red colour */
-                        MainControlFragment.Change_Reconnected_Button_BG(0xFFFF0000);
+                        MainControlFragment.Change_Reconnected_Button_BG(Color.RED);
                     }
                 });
             }
