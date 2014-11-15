@@ -151,15 +151,23 @@ public class ACMainActivity extends FragmentActivity {
 
         /* release the connection */
         try {
-            dout.close();
-            out.close();
-            socket.close();
+            if (dout != null)
+               dout.close();
+            if (out != null)
+               out.close();
+            if (socket != null) {
+                socket.close();
+                if (socket.isClosed()) {
+                    Toast.makeText(this, "SOCKET RELEASE", Toast.LENGTH_SHORT).show();
+                }
+            }
+        } catch (UnknownHostException e1) {
+            e1.printStackTrace();
+            Toast.makeText(this,"MEEEEC" , Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (socket.isClosed()){
-            Toast.makeText(this,"SOCKET RELEASE" , Toast.LENGTH_SHORT).show();
-        }
+
     }
 			
 	@Override
