@@ -314,6 +314,10 @@ public class ACMainActivity extends FragmentActivity {
         return Is_Connected;
     }
 
+    public int Get_Number_Of_Sensors(){
+        return Sensors;
+    }
+
 
     public void click_data_refresh_button(View view) {
 /* start the thread to send the petition to the alarm */
