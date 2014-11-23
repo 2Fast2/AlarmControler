@@ -23,5 +23,6 @@
     <!-- Sensor tab strings -->
     <string name="SensorSwitchOnOff">Sensor Powered</string>
     <string name="SensorStatus">Status</string>
+    <string name="ResetButton">Reset</string>
 
 </resources>

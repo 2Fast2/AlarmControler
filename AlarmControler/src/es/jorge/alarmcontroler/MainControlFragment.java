@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 /**
@@ -22,7 +24,11 @@ public class MainControlFragment {
  */
 public class MainControlFragment extends Fragment {
 
-    static Button Recon_Button;
+    private static Button Recon_Button;
+
+    /* main switch On/Off */
+    Switch Main_Switch;
+    private static boolean Main_Switch_State;
 
     public MainControlFragment() {
     }
@@ -34,8 +40,6 @@ public class MainControlFragment extends Fragment {
                 container, false);
         TextView MainControlTextView = (TextView) rootView
                 .findViewById(R.id.section_label);
-//			MainControlTextView.setText(Integer.toString(getArguments().getInt(
-//					ARG_SECTION_NUMBER)));
 
         Recon_Button = (Button)rootView.findViewById(R.id.Recon_Button);
 
@@ -48,12 +52,39 @@ public class MainControlFragment extends Fragment {
             Change_Reconnected_Button_BG(Color.RED);
         }
 
+        /* take id for main switch */
+        Main_Switch = (Switch)rootView.findViewById(R.id.sensor_switch);
+
+        /* check main switch change */
+        if (Main_Switch != null){
+            Main_Switch.setOnCheckedChangeListener((CompoundButton.OnCheckedChangeListener)this);
+        }
+
         return rootView;
     }
 
+    /*************************************************************************/
+    /*  Change_Reconnected_Button_BG                                         */
+    /*************************************************************************/
     public static void Change_Reconnected_Button_BG(int Colour){
 
-        Recon_Button.getBackground().setColorFilter(Colour, PorterDuff.Mode.MULTIPLY);
+        if (Recon_Button != null) {
+            Recon_Button.getBackground().setColorFilter(Colour, PorterDuff.Mode.MULTIPLY);
+        }
 
+    }
+
+    /*************************************************************************/
+    /*  onCheckedChanged                                                     */
+    /*************************************************************************/
+    private void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        Main_Switch_State = isChecked;
+    }
+
+    /*************************************************************************/
+    /*  Get_Main_Switch_State                                                */
+    /*************************************************************************/
+    public static boolean Get_Main_Switch_State(){
+        return Main_Switch_State;
     }
 }

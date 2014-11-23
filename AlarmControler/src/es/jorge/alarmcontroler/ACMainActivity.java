@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -53,7 +54,7 @@ public class ACMainActivity extends FragmentActivity {
 	SharedPreferences pref;
 	
 	// store number of sensors
-	private int Sensors = 0;
+	private static int Sensors = 0;
 	
 	// socket name
 	private Socket socket;
@@ -81,8 +82,12 @@ public class ACMainActivity extends FragmentActivity {
 
     /* progress circle dialog */
     private ProgressDialog Circle_Pogress;
-	
-	private void log(String string) {
+
+    /* Tx messages */
+    TX_Messages Msg_Tx;
+
+
+	private void log0(String string) {
 		//
 		Toast.makeText(this, (string), Toast.LENGTH_LONG).show();
 	}
@@ -104,6 +109,9 @@ public class ACMainActivity extends FragmentActivity {
 
         /* create the circle progress */
         Circle_Pogress = new ProgressDialog(this);
+
+        /* create TX msg */
+        Msg_Tx = new TX_Messages();
 
 		// start the thread that connect to the server.
         Connection_Thread = new Thread(new ClientThread());
@@ -254,7 +262,7 @@ public class ACMainActivity extends FragmentActivity {
 				return MCfragment;
 			default:
 				//activity for sensor tabs
-				Fragment SWfragment = new SensorViewFragment();
+				Fragment SWfragment = new SensorViewFragment().newInstance(position);
 				return SWfragment;
 			}
 		
@@ -314,18 +322,45 @@ public class ACMainActivity extends FragmentActivity {
         return Is_Connected;
     }
 
-    public int Get_Number_Of_Sensors(){
+    public static int Get_Number_Of_Sensors(){
         return Sensors;
     }
 
+    public void Click_Sensor_Power_Switch(View view){
+        SensorViewFragment.onClick_Sensor_Power_Switch(view);
+    }
+
+    public void Click_Reset_Sensor_Button(View view){
+        SensorViewFragment.onClick_Reset_Sensor_Button(view);
+    }
 
     public void click_data_refresh_button(View view) {
-/* start the thread to send the petition to the alarm */
 
-        /* TODO SOLO PARA PRUEBAS */
+        String Msg_1;
+        String Msg_2;
+        String Msg;
+        int i;
 
         try {
+            // SOLO PARA DEPURAR****************************************************
+            Msg_1 = Msg_Tx.Get_Msg_1();
+            Msg = Msg_1;
+            for (i=0; i < Sensors; i++) {
+                Msg_2 = Msg_Tx.Get_Msg_2(i);
+                Msg = Msg + Msg_2;
+            }
+            // SOLO PARA DEPURAR****************************************************
+
             if (socket != null) {
+                /* create msg#1 */
+                Msg_1 = Msg_Tx.Get_Msg_1();
+                Msg = Msg_1;
+                for (i=0; i < Sensors; i++) {
+                    Msg_2 = Msg_Tx.Get_Msg_2(i);
+                    Msg = Msg + Msg_2;
+                }
+
+
                 out = socket.getOutputStream();
                 dout = new DataOutputStream(out);
                 dout.writeInt(1234);

@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 /**
@@ -19,8 +21,21 @@ public class SensorViewFragment {
  */
 public class SensorViewFragment extends Fragment {
 
-    public SensorViewFragment() {
+    static Switch Sensor_Switch;
+    private static boolean Sensor_Switch_State = false;
+    private static int Sensor_Number = 0;
+    private static boolean Reset = false;
+
+    public SensorViewFragment() {}
+
+    public static SensorViewFragment newInstance(int Sens_Num) {
+        SensorViewFragment frag = new SensorViewFragment();
+        Bundle args = new Bundle();
+        args.putInt("Sensor_Number", (Sens_Num - 1));
+        frag.setArguments(args);
+        return frag;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,8 +44,60 @@ public class SensorViewFragment extends Fragment {
                 container, false);
         TextView SensorViewTextView = (TextView) rootView
                 .findViewById(R.id.section_label);
-//			MainControlTextView.setText(Integer.toString(getArguments().getInt(
-//					ARG_SECTION_NUMBER)));
+
+        Sensor_Switch = (Switch)rootView.findViewById(R.id.sensor_switch);
+
         return rootView;
     }
+
+    /*************************************************************************/
+    /*  onCheckedChanged                                                     */
+    /*************************************************************************/
+    private void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+        Sensor_Switch_State = isChecked;
+        TX_Messages.Set_Msg_2(Sensor_Number, Sensor_Switch_State, Reset);
+    }
+
+    /*************************************************************************/
+    /*  onClick_Reset_Sensor_Button                                          */
+    /*************************************************************************/
+    public static void onClick_Reset_Sensor_Button(View view){
+
+        Reset = true;
+        TX_Messages.Set_Msg_2(Sensor_Number, Sensor_Switch_State, Reset);
+    }
+
+    /*************************************************************************/
+    /*  onClick_Reset_Sensor_Button                                          */
+    /*************************************************************************/
+    public static void onClick_Sensor_Power_Switch(View view){
+
+        Sensor_Switch_State = Sensor_Switch.isChecked();
+        TX_Messages.Set_Msg_2(Sensor_Number, Sensor_Switch_State, Reset);
+        Reset = false; /* change to false the Reset value to send the correct
+                          value several times */
+    }
+
+    /*************************************************************************/
+    /*  Get_Sensor_Number                                                    */
+    /*************************************************************************/
+    public static int Get_Sensor_Number(){
+        return Sensor_Number;
+    }
+
+    /*************************************************************************/
+    /*  Get_Sensor_Switch_State                                              */
+    /*************************************************************************/
+    public static boolean Get_Sensor_Switch_State (){
+        return Sensor_Switch_State;
+    }
+
+    /*************************************************************************/
+    /*  Get_Sensor_Reset                                                     */
+    /*************************************************************************/
+    public static boolean Get_Sensor_Reset(){
+        return Reset;
+    }
+
 }

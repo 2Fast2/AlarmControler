@@ -43,18 +43,6 @@ public class SettingsActivity extends PreferenceActivity {
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
 
-	//	setupSimplePreferencesScreen();
-		// put general preference fragment
-//		getFragmentManager().beginTransaction().replace(android.R.id.content,
-//				new GeneralPreferenceFragment()).commit();
-		
-		// put notifications preference fragment
-//		getFragmentManager().beginTransaction().replace(android.R.id.content,
-//				new NotificationPreferenceFragment()).commit();
-		
-		// put sensors preference fragment
-//		getFragmentManager().beginTransaction().replace(android.R.id.content,
-//				new SensorsPreferenceFragment()).commit();
 
 	}
 	

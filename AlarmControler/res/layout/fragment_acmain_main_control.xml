@@ -27,13 +27,12 @@
         android:id="@+id/Recon_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/switch1"
-        android:layout_below="@+id/switch1"
-        android:layout_marginLeft="52dp"
-        android:layout_marginTop="120dp"
         android:onClick="click_reconnect_button"
         android:text="@string/ReconnectButton"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="153dp" />
 
     <Button
         android:id="@+id/Refresh_Button"
