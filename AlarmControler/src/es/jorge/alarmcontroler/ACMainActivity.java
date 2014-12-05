@@ -20,15 +20,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.net.UnknownHostException;
 import java.util.Locale;
 
@@ -57,8 +57,10 @@ public class ACMainActivity extends FragmentActivity {
 	private static int Sensors = 0;
 	
 	// socket name
-	private Socket socket;
+	private Socket socket = new Socket();
 
+    // timeout connection in miliseconds
+    private static final int CONNECTION_TIMEOUT = 5000;
 	// server port connection
 	private static final int SERVERPORT = 5000;
 	// server IP, this must be the same as the IP in the configuration
@@ -115,6 +117,7 @@ public class ACMainActivity extends FragmentActivity {
 
 		// start the thread that connect to the server.
         Connection_Thread = new Thread(new ClientThread());
+        Connection_Thread.setName("Client Connection Thread");
         Connection_Thread.start();
 	}
 
@@ -327,11 +330,13 @@ public class ACMainActivity extends FragmentActivity {
     }
 
     public void Click_Sensor_Power_Switch(View view){
-        SensorViewFragment.onClick_Sensor_Power_Switch(view);
+
+        SensorViewFragment.onClick_Sensor_Power_Switch(view, mViewPager.getCurrentItem());
+
     }
 
     public void Click_Reset_Sensor_Button(View view){
-        SensorViewFragment.onClick_Reset_Sensor_Button(view);
+        SensorViewFragment.onClick_Reset_Sensor_Button(view, mViewPager.getCurrentItem());
     }
 
     public void click_data_refresh_button(View view) {
@@ -364,7 +369,7 @@ public class ACMainActivity extends FragmentActivity {
                 out = socket.getOutputStream();
                 dout = new DataOutputStream(out);
                 dout.writeInt(1234);
-            /*dout.writeLong(123L);
+                /*dout.writeLong(123L);
             dout.writeFloat(1.2f);*/
                 //dout.writeChars("Boton1");
                 dout.flush();
@@ -385,7 +390,7 @@ public class ACMainActivity extends FragmentActivity {
 	
 	public void click_reconnect_button(View view){
 		
-		if( socket != null ) {
+		if( socket.isConnected()) {
             IP = socket.getInetAddress().toString();
             Port = socket.getPort();
 
@@ -408,14 +413,17 @@ public class ACMainActivity extends FragmentActivity {
 	
 	// Check if the phone is connected to any network
 	private boolean isNetworkConnected() {
-		  ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		  ConnectivityManager cm =
+                  (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		  NetworkInfo ni = cm.getActiveNetworkInfo();
-		  if (ni == null) {
-		   // There are no active networks.
-		   return false;
-		  } else
-			  // there are active networks
-		   return true;
+        if (ni == null) {
+            // There are no active networks.
+            return false;
+        } else {
+            // there are active networks
+            return true;
+        }
+
     }
 
     // Start circle progress bar
@@ -431,8 +439,12 @@ public class ACMainActivity extends FragmentActivity {
         Circle_Pogress.dismiss();
     }
 
-	
-	// Thread to connect to the server.
+
+    /*************************************************************************/
+    /*                                                                       */
+    /*  Thread to connect to the server.                                     */
+    /*                                                                       */
+    /*************************************************************************/
 	class ClientThread implements Runnable {
 
         @Override
@@ -446,58 +458,55 @@ public class ACMainActivity extends FragmentActivity {
                 @Override
                 public void run() {
                 Start_Circle_Progress();
-            }
-                });
+                }
+            });
             try {
 
                 // take the IP number from the preferences
                 SERVER_IP = pref.getString("ip","");
 
-        /* Check if there are any network connected and there are
-         any server ip specified*/
-                if (isNetworkConnected() && (SERVER_IP != "") ){
+                /* Check if there are any network connected and there are
+                   any server ip specified*/
+                if (isNetworkConnected() && !SERVER_IP.isEmpty() && !socket.isBound()) {
                     // try to connect to the server
                     InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
-            /* check if the server is reachable and connect if it is */
+                    SocketAddress SocketInfo = new InetSocketAddress(serverAddr, SERVERPORT);
 
-                    socket = new Socket(serverAddr, SERVERPORT);
-                    if (socket.isBound())
-                        Is_Connected = true;
-                 }else{
-            /* not connected finish the thread*/
-                    Is_Connected = false;
-   				}
+                    // connect the socket to the remote server
+                    socket.connect(SocketInfo, CONNECTION_TIMEOUT);
 
-			} catch (UnknownHostException e1) {
-            Log.e("Error connexion", "" + e1);
-            e1.printStackTrace();
-            Is_Connected = false;
+                    // take the result if the socket is connected
+                    Is_Connected = socket.isBound();
+                }
+            } catch (UnknownHostException e1) {
+                Log.e("Error connexion", "" + e1);
+                e1.printStackTrace();
+                Is_Connected = false;
                 ACMainActivity.this.runOnUiThread(new Runnable() {
 
                     @Override
                     public void run() {
                         Stop_Circle_Progress();
-                        MainControlFragment.Change_Reconnected_Button_BG(0xFFFF0000);
+                        MainControlFragment.Change_Reconnected_Button_BG(Color.RED);
                         Alert_Message("Unable to connect with the server");
 
                     }
                 });
-        } catch (IOException e1) {
-            Log.e("Error connexion", "" + e1);
-            e1.printStackTrace();
-            Is_Connected = false;
+            } catch (IOException e1) {
+                Log.e("Error connexion", "" + e1);
+                e1.printStackTrace();
+                Is_Connected = false;
                 ACMainActivity.this.runOnUiThread(new Runnable() {
 
                     @Override
                     public void run() {
                         Stop_Circle_Progress();
-                        MainControlFragment.Change_Reconnected_Button_BG(0xFFFF0000);
-                 Alert_Message("Unable to connect with the server");
-
+                        MainControlFragment.Change_Reconnected_Button_BG(Color.RED);
+                        Alert_Message("Unable to connect with the server");
                     }
                 });
 
-        }
+            }
 
             if (Is_Connected){
                 ACMainActivity.this.runOnUiThread(new Runnable() {
@@ -522,5 +531,7 @@ public class ACMainActivity extends FragmentActivity {
 		}
 
 	}
+
+
 
 }

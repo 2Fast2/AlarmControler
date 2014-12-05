@@ -94,9 +94,9 @@ public class TX_Messages {
     public String Get_Msg_2 (int Msg_Num){
 
         return Msg_2_Array[Msg_Num];
-    }
+}
 
-    /*************************************************************************/
+     /*************************************************************************/
     /*  Set_Msg_2                                                            */
     /*************************************************************************/
     public static void Set_Msg_2 (int Sensor_Number, boolean Power_Switch, boolean Sensor_Reset){
