@@ -30,18 +30,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83d22ec9-abee-4908-af09-098925d156a1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.1/taskArtifacts/cache.properties.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.1/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.1/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/model_data.bin" afterPath="$PROJECT_DIR$/build/intermediates/model_data.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.1/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/es/jorge/alarmcontroler/ACMainActivity.java" afterPath="$PROJECT_DIR$/src/es/jorge/alarmcontroler/ACMainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/es/jorge/alarmcontroler/SensorViewFragment.java" afterPath="$PROJECT_DIR$/src/es/jorge/alarmcontroler/SensorViewFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/es/jorge/alarmcontroler/TX_Messages.java" afterPath="$PROJECT_DIR$/src/es/jorge/alarmcontroler/TX_Messages.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/fragment_acmain_sensor_view.xml" afterPath="$PROJECT_DIR$/res/layout/fragment_acmain_sensor_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/fragment_acmain_main_control.xml" afterPath="$PROJECT_DIR$/res/layout/fragment_acmain_main_control.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="AlarmControler.iws" />
@@ -70,25 +60,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ACMainActivity.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ACMainActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/es/jorge/alarmcontroler/ACMainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.84615386" vertical-offset="7854" max-vertical-offset="8381">
-              <caret line="534" column="0" selection-start-line="534" selection-start-column="0" selection-end-line="534" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="4901" max-vertical-offset="10642">
+              <caret line="332" column="16" selection-start-line="332" selection-start-column="16" selection-end-line="332" selection-end-column="16" />
               <folding>
-                <element signature="e#8320#8354#0" expanded="true" />
-                <element signature="e#8393#8427#0" expanded="true" />
-                <element signature="e#8466#8500#0" expanded="true" />
-                <element signature="e#8539#8573#0" expanded="true" />
-                <element signature="e#8612#8646#0" expanded="true" />
-                <element signature="e#8685#8719#0" expanded="true" />
-                <element signature="e#8758#8792#0" expanded="true" />
-                <element signature="e#8831#8865#0" expanded="true" />
-                <element signature="e#8904#8938#0" expanded="true" />
-                <element signature="e#8977#9012#0" expanded="true" />
-                <element signature="e#9052#9087#0" expanded="true" />
-                <element signature="e#13539#13690#0" expanded="true" />
-                <element signature="e#13675#13676#0" expanded="true" />
+                <element signature="e#8349#8383#0" expanded="true" />
+                <element signature="e#8422#8456#0" expanded="true" />
+                <element signature="e#8495#8529#0" expanded="true" />
+                <element signature="e#8568#8602#0" expanded="true" />
+                <element signature="e#8641#8675#0" expanded="true" />
+                <element signature="e#8714#8748#0" expanded="true" />
+                <element signature="e#8787#8821#0" expanded="true" />
+                <element signature="e#8860#8894#0" expanded="true" />
+                <element signature="e#8933#8967#0" expanded="true" />
+                <element signature="e#9006#9041#0" expanded="true" />
+                <element signature="e#9081#9116#0" expanded="true" />
+                <element signature="e#13554#13705#0" expanded="true" />
+                <element signature="e#13690#13691#0" expanded="true" />
+                <element signature="e#17670#17935#0" expanded="true" />
+                <element signature="e#17912#17913#0" expanded="true" />
+                <element signature="e#18123#18318#0" expanded="true" />
+                <element signature="e#18299#18300#0" expanded="true" />
+                <element signature="e#18478#18672#0" expanded="true" />
+                <element signature="e#18653#18654#0" expanded="true" />
+                <element signature="e#20117#20381#0" expanded="true" />
+                <element signature="e#20358#20359#0" expanded="true" />
+                <element signature="e#20569#20763#0" expanded="true" />
+                <element signature="e#20744#20745#0" expanded="true" />
+                <element signature="e#20923#21116#0" expanded="true" />
+                <element signature="e#21097#21098#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -97,8 +99,8 @@
       <file leaf-file-name="TX_Messages.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/es/jorge/alarmcontroler/TX_Messages.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1500" max-vertical-offset="1955">
-              <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="663" max-vertical-offset="1955">
+              <caret line="59" column="21" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -119,11 +121,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainControlFragment.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="MainControlFragment.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/es/jorge/alarmcontroler/MainControlFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="1615">
-              <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
+            <state vertical-scroll-proportion="-0.4814815" vertical-offset="595" max-vertical-offset="1411">
+              <caret line="32" column="34" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -688,13 +690,13 @@
         <option value="$PROJECT_DIR$/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/es/jorge/alarmcontroler/SettingsActivity.java" />
-        <option value="$PROJECT_DIR$/res/layout/fragment_acmain_main_control.xml" />
         <option value="$PROJECT_DIR$/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/es/jorge/alarmcontroler/MainControlFragment.java" />
         <option value="$PROJECT_DIR$/src/es/jorge/alarmcontroler/TX_Messages.java" />
         <option value="$PROJECT_DIR$/res/layout/fragment_acmain_sensor_view.xml" />
         <option value="$PROJECT_DIR$/src/es/jorge/alarmcontroler/SensorViewFragment.java" />
         <option value="$PROJECT_DIR$/src/es/jorge/alarmcontroler/ACMainActivity.java" />
+        <option value="$PROJECT_DIR$/res/layout/fragment_acmain_main_control.xml" />
       </list>
     </option>
   </component>
@@ -900,6 +902,8 @@
     <property name="android.project.structure.last.selected" value="AlarmControler" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_5_API_21" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="OverrideImplement.overriding.sorted" value="false" />
   </component>
   <component name="RunManager" selected="Android Application.AlarmControler">
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
@@ -1108,7 +1112,11 @@
       <created>1416708940202</created>
       <updated>1416708940202</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Create Msg2 correctly when pulse Reset button or change Sensor Powered switch.">
+      <created>1417823181098</created>
+      <updated>1417823181098</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1140,14 +1148,14 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32916668" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5028653" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5010352" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5010352" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3236111" sideWeight="0.49713466" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3236111" sideWeight="0.49713466" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295129" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25143266" sideWeight="0.49896482" order="1" side_tool="false" content_ui="tabs" />
@@ -1155,10 +1163,10 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24426934" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.493553" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5114613" order="14" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39899713" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1190,31 +1198,12 @@
     <MESSAGE value="Use Color library instead of the color in hex." />
     <MESSAGE value="Minor changes and add new clases TX_Messages and RX_Messages" />
     <MESSAGE value="Create messages from the app to the alarm. Msg_2 is not created correctly." />
-    <option name="LAST_COMMIT_MESSAGE" value="Create messages from the app to the alarm. Msg_2 is not created correctly." />
+    <MESSAGE value="Create Msg2 correctly when pulse Reset button or change Sensor Powered switch." />
+    <option name="LAST_COMMIT_MESSAGE" value="Create Msg2 correctly when pulse Reset button or change Sensor Powered switch." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/es/jorge/alarmcontroler/ACMainActivity.java</url>
-          <line>350</line>
-          <properties />
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/es/jorge/alarmcontroler/ACMainActivity.java</url>
-          <line>392</line>
-          <properties />
-          <option name="timeStamp" value="55" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/es/jorge/alarmcontroler/ACMainActivity.java</url>
-          <line>338</line>
-          <properties />
-          <option name="timeStamp" value="60" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="61" />
+      <option name="time" value="62" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -1238,19 +1227,31 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="337" max-vertical-offset="6783">
           <caret line="47" column="27" selection-start-line="47" selection-start-column="27" selection-end-line="47" selection-end-column="27" />
           <folding>
-            <element signature="e#8320#8354#0" expanded="true" />
-            <element signature="e#8393#8427#0" expanded="true" />
-            <element signature="e#8466#8500#0" expanded="true" />
-            <element signature="e#8539#8573#0" expanded="true" />
-            <element signature="e#8612#8646#0" expanded="true" />
-            <element signature="e#8685#8719#0" expanded="true" />
-            <element signature="e#8758#8792#0" expanded="true" />
-            <element signature="e#8831#8865#0" expanded="true" />
-            <element signature="e#8904#8938#0" expanded="true" />
-            <element signature="e#8977#9012#0" expanded="true" />
-            <element signature="e#9052#9087#0" expanded="true" />
-            <element signature="e#13539#13690#0" expanded="true" />
-            <element signature="e#13675#13676#0" expanded="true" />
+            <element signature="e#8349#8383#0" expanded="true" />
+            <element signature="e#8422#8456#0" expanded="true" />
+            <element signature="e#8495#8529#0" expanded="true" />
+            <element signature="e#8568#8602#0" expanded="true" />
+            <element signature="e#8641#8675#0" expanded="true" />
+            <element signature="e#8714#8748#0" expanded="true" />
+            <element signature="e#8787#8821#0" expanded="true" />
+            <element signature="e#8860#8894#0" expanded="true" />
+            <element signature="e#8933#8967#0" expanded="true" />
+            <element signature="e#9006#9041#0" expanded="true" />
+            <element signature="e#9081#9116#0" expanded="true" />
+            <element signature="e#13554#13705#0" expanded="true" />
+            <element signature="e#13690#13691#0" expanded="true" />
+            <element signature="e#17670#17935#0" expanded="true" />
+            <element signature="e#17912#17913#0" expanded="true" />
+            <element signature="e#18123#18318#0" expanded="true" />
+            <element signature="e#18299#18300#0" expanded="true" />
+            <element signature="e#18478#18672#0" expanded="true" />
+            <element signature="e#18653#18654#0" expanded="true" />
+            <element signature="e#20117#20381#0" expanded="true" />
+            <element signature="e#20358#20359#0" expanded="true" />
+            <element signature="e#20569#20763#0" expanded="true" />
+            <element signature="e#20744#20745#0" expanded="true" />
+            <element signature="e#20923#21116#0" expanded="true" />
+            <element signature="e#21097#21098#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1318,19 +1319,31 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="6563" max-vertical-offset="7242">
           <caret line="445" column="67" selection-start-line="445" selection-start-column="67" selection-end-line="445" selection-end-column="67" />
           <folding>
-            <element signature="e#8320#8354#0" expanded="true" />
-            <element signature="e#8393#8427#0" expanded="true" />
-            <element signature="e#8466#8500#0" expanded="true" />
-            <element signature="e#8539#8573#0" expanded="true" />
-            <element signature="e#8612#8646#0" expanded="true" />
-            <element signature="e#8685#8719#0" expanded="true" />
-            <element signature="e#8758#8792#0" expanded="true" />
-            <element signature="e#8831#8865#0" expanded="true" />
-            <element signature="e#8904#8938#0" expanded="true" />
-            <element signature="e#8977#9012#0" expanded="true" />
-            <element signature="e#9052#9087#0" expanded="true" />
-            <element signature="e#13539#13690#0" expanded="true" />
-            <element signature="e#13675#13676#0" expanded="true" />
+            <element signature="e#8349#8383#0" expanded="true" />
+            <element signature="e#8422#8456#0" expanded="true" />
+            <element signature="e#8495#8529#0" expanded="true" />
+            <element signature="e#8568#8602#0" expanded="true" />
+            <element signature="e#8641#8675#0" expanded="true" />
+            <element signature="e#8714#8748#0" expanded="true" />
+            <element signature="e#8787#8821#0" expanded="true" />
+            <element signature="e#8860#8894#0" expanded="true" />
+            <element signature="e#8933#8967#0" expanded="true" />
+            <element signature="e#9006#9041#0" expanded="true" />
+            <element signature="e#9081#9116#0" expanded="true" />
+            <element signature="e#13554#13705#0" expanded="true" />
+            <element signature="e#13690#13691#0" expanded="true" />
+            <element signature="e#17670#17935#0" expanded="true" />
+            <element signature="e#17912#17913#0" expanded="true" />
+            <element signature="e#18123#18318#0" expanded="true" />
+            <element signature="e#18299#18300#0" expanded="true" />
+            <element signature="e#18478#18672#0" expanded="true" />
+            <element signature="e#18653#18654#0" expanded="true" />
+            <element signature="e#20117#20381#0" expanded="true" />
+            <element signature="e#20358#20359#0" expanded="true" />
+            <element signature="e#20569#20763#0" expanded="true" />
+            <element signature="e#20744#20745#0" expanded="true" />
+            <element signature="e#20923#21116#0" expanded="true" />
+            <element signature="e#21097#21098#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1366,19 +1379,31 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="4256" max-vertical-offset="5899">
           <caret line="294" column="0" selection-start-line="294" selection-start-column="0" selection-end-line="294" selection-end-column="0" />
           <folding>
-            <element signature="e#8320#8354#0" expanded="true" />
-            <element signature="e#8393#8427#0" expanded="true" />
-            <element signature="e#8466#8500#0" expanded="true" />
-            <element signature="e#8539#8573#0" expanded="true" />
-            <element signature="e#8612#8646#0" expanded="true" />
-            <element signature="e#8685#8719#0" expanded="true" />
-            <element signature="e#8758#8792#0" expanded="true" />
-            <element signature="e#8831#8865#0" expanded="true" />
-            <element signature="e#8904#8938#0" expanded="true" />
-            <element signature="e#8977#9012#0" expanded="true" />
-            <element signature="e#9052#9087#0" expanded="true" />
-            <element signature="e#13539#13690#0" expanded="true" />
-            <element signature="e#13675#13676#0" expanded="true" />
+            <element signature="e#8349#8383#0" expanded="true" />
+            <element signature="e#8422#8456#0" expanded="true" />
+            <element signature="e#8495#8529#0" expanded="true" />
+            <element signature="e#8568#8602#0" expanded="true" />
+            <element signature="e#8641#8675#0" expanded="true" />
+            <element signature="e#8714#8748#0" expanded="true" />
+            <element signature="e#8787#8821#0" expanded="true" />
+            <element signature="e#8860#8894#0" expanded="true" />
+            <element signature="e#8933#8967#0" expanded="true" />
+            <element signature="e#9006#9041#0" expanded="true" />
+            <element signature="e#9081#9116#0" expanded="true" />
+            <element signature="e#13554#13705#0" expanded="true" />
+            <element signature="e#13690#13691#0" expanded="true" />
+            <element signature="e#17670#17935#0" expanded="true" />
+            <element signature="e#17912#17913#0" expanded="true" />
+            <element signature="e#18123#18318#0" expanded="true" />
+            <element signature="e#18299#18300#0" expanded="true" />
+            <element signature="e#18478#18672#0" expanded="true" />
+            <element signature="e#18653#18654#0" expanded="true" />
+            <element signature="e#20117#20381#0" expanded="true" />
+            <element signature="e#20358#20359#0" expanded="true" />
+            <element signature="e#20569#20763#0" expanded="true" />
+            <element signature="e#20744#20745#0" expanded="true" />
+            <element signature="e#20923#21116#0" expanded="true" />
+            <element signature="e#21097#21098#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1395,19 +1420,31 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="4743" max-vertical-offset="5712">
           <caret line="336" column="78" selection-start-line="336" selection-start-column="78" selection-end-line="336" selection-end-column="78" />
           <folding>
-            <element signature="e#8320#8354#0" expanded="true" />
-            <element signature="e#8393#8427#0" expanded="true" />
-            <element signature="e#8466#8500#0" expanded="true" />
-            <element signature="e#8539#8573#0" expanded="true" />
-            <element signature="e#8612#8646#0" expanded="true" />
-            <element signature="e#8685#8719#0" expanded="true" />
-            <element signature="e#8758#8792#0" expanded="true" />
-            <element signature="e#8831#8865#0" expanded="true" />
-            <element signature="e#8904#8938#0" expanded="true" />
-            <element signature="e#8977#9012#0" expanded="true" />
-            <element signature="e#9052#9087#0" expanded="true" />
-            <element signature="e#13539#13690#0" expanded="true" />
-            <element signature="e#13675#13676#0" expanded="true" />
+            <element signature="e#8349#8383#0" expanded="true" />
+            <element signature="e#8422#8456#0" expanded="true" />
+            <element signature="e#8495#8529#0" expanded="true" />
+            <element signature="e#8568#8602#0" expanded="true" />
+            <element signature="e#8641#8675#0" expanded="true" />
+            <element signature="e#8714#8748#0" expanded="true" />
+            <element signature="e#8787#8821#0" expanded="true" />
+            <element signature="e#8860#8894#0" expanded="true" />
+            <element signature="e#8933#8967#0" expanded="true" />
+            <element signature="e#9006#9041#0" expanded="true" />
+            <element signature="e#9081#9116#0" expanded="true" />
+            <element signature="e#13554#13705#0" expanded="true" />
+            <element signature="e#13690#13691#0" expanded="true" />
+            <element signature="e#17670#17935#0" expanded="true" />
+            <element signature="e#17912#17913#0" expanded="true" />
+            <element signature="e#18123#18318#0" expanded="true" />
+            <element signature="e#18299#18300#0" expanded="true" />
+            <element signature="e#18478#18672#0" expanded="true" />
+            <element signature="e#18653#18654#0" expanded="true" />
+            <element signature="e#20117#20381#0" expanded="true" />
+            <element signature="e#20358#20359#0" expanded="true" />
+            <element signature="e#20569#20763#0" expanded="true" />
+            <element signature="e#20744#20745#0" expanded="true" />
+            <element signature="e#20923#21116#0" expanded="true" />
+            <element signature="e#21097#21098#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1497,17 +1534,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/fragment_acmain_main_control.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="289" max-vertical-offset="935">
-          <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/libs/android-support-v4.jar!/android/support/v4/app/Fragment.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.2" vertical-offset="3899" max-vertical-offset="4607">
@@ -1578,14 +1604,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="13073">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/es/jorge/alarmcontroler/MainControlFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1411">
-          <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1676,31 +1694,62 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/es/jorge/alarmcontroler/TX_Messages.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1500" max-vertical-offset="1955">
-          <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="663" max-vertical-offset="1955">
+          <caret line="59" column="21" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/es/jorge/alarmcontroler/ACMainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.84615386" vertical-offset="7854" max-vertical-offset="8381">
-          <caret line="534" column="0" selection-start-line="534" selection-start-column="0" selection-end-line="534" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="4901" max-vertical-offset="10642">
+          <caret line="332" column="16" selection-start-line="332" selection-start-column="16" selection-end-line="332" selection-end-column="16" />
           <folding>
-            <element signature="e#8320#8354#0" expanded="true" />
-            <element signature="e#8393#8427#0" expanded="true" />
-            <element signature="e#8466#8500#0" expanded="true" />
-            <element signature="e#8539#8573#0" expanded="true" />
-            <element signature="e#8612#8646#0" expanded="true" />
-            <element signature="e#8685#8719#0" expanded="true" />
-            <element signature="e#8758#8792#0" expanded="true" />
-            <element signature="e#8831#8865#0" expanded="true" />
-            <element signature="e#8904#8938#0" expanded="true" />
-            <element signature="e#8977#9012#0" expanded="true" />
-            <element signature="e#9052#9087#0" expanded="true" />
-            <element signature="e#13539#13690#0" expanded="true" />
-            <element signature="e#13675#13676#0" expanded="true" />
+            <element signature="e#8349#8383#0" expanded="true" />
+            <element signature="e#8422#8456#0" expanded="true" />
+            <element signature="e#8495#8529#0" expanded="true" />
+            <element signature="e#8568#8602#0" expanded="true" />
+            <element signature="e#8641#8675#0" expanded="true" />
+            <element signature="e#8714#8748#0" expanded="true" />
+            <element signature="e#8787#8821#0" expanded="true" />
+            <element signature="e#8860#8894#0" expanded="true" />
+            <element signature="e#8933#8967#0" expanded="true" />
+            <element signature="e#9006#9041#0" expanded="true" />
+            <element signature="e#9081#9116#0" expanded="true" />
+            <element signature="e#13554#13705#0" expanded="true" />
+            <element signature="e#13690#13691#0" expanded="true" />
+            <element signature="e#17670#17935#0" expanded="true" />
+            <element signature="e#17912#17913#0" expanded="true" />
+            <element signature="e#18123#18318#0" expanded="true" />
+            <element signature="e#18299#18300#0" expanded="true" />
+            <element signature="e#18478#18672#0" expanded="true" />
+            <element signature="e#18653#18654#0" expanded="true" />
+            <element signature="e#20117#20381#0" expanded="true" />
+            <element signature="e#20358#20359#0" expanded="true" />
+            <element signature="e#20569#20763#0" expanded="true" />
+            <element signature="e#20744#20745#0" expanded="true" />
+            <element signature="e#20923#21116#0" expanded="true" />
+            <element signature="e#21097#21098#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/fragment_acmain_main_control.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="289" max-vertical-offset="935">
+          <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/es/jorge/alarmcontroler/MainControlFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.4814815" vertical-offset="595" max-vertical-offset="1411">
+          <caret line="32" column="34" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>

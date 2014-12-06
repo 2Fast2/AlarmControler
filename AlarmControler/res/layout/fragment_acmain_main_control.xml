@@ -21,7 +21,8 @@
         android:layout_below="@+id/section_label"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="47dp"
-        android:text="@string/SwitchOnOff" />
+        android:text="@string/SwitchOnOff"
+        android:onClick="Click_Alarm_Power_Switch" />
 
     <Button
         android:id="@+id/Recon_Button"

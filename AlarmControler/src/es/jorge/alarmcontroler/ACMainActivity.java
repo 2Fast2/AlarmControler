@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -329,63 +330,57 @@ public class ACMainActivity extends FragmentActivity {
         return Sensors;
     }
 
+    public void Click_Alarm_Power_Switch(View view){
+
+        try{
+            if (Is_Connected) {
+                new Send_Msg1_2_Async_Task().execute("");
+            }else{
+                Alert_Message("Not connected to the Alarm. Try to reconnect to the Alarm first.");
+            }
+        }catch (IllegalStateException e1){
+            Alert_Message("Unable to send the message to the alarm. Try later");
+        }
+    }
+
     public void Click_Sensor_Power_Switch(View view){
 
         SensorViewFragment.onClick_Sensor_Power_Switch(view, mViewPager.getCurrentItem());
-
+        try{
+            if (Is_Connected) {
+                new Send_Msg2_Async_Task().execute("");
+            }else{
+                Alert_Message("Not connected to the Alarm. Try to reconnect to the Alarm first.");
+            }
+        }catch (IllegalStateException e1){
+            Alert_Message("Unable to send the message to the alarm. Try later");
+        }
     }
 
     public void Click_Reset_Sensor_Button(View view){
         SensorViewFragment.onClick_Reset_Sensor_Button(view, mViewPager.getCurrentItem());
+        try{
+            if (Is_Connected) {
+                new Send_Msg2_Async_Task().execute("");
+            }else{
+                Alert_Message("Not connected to the Alarm. Try to reconnect to the Alarm first.");
+            }
+        }catch (IllegalStateException e1){
+            Alert_Message("Unable to send the message to the alarm. Try later");
+        }
     }
 
     public void click_data_refresh_button(View view) {
 
-        String Msg_1;
-        String Msg_2;
-        String Msg;
-        int i;
-
-        try {
-            // SOLO PARA DEPURAR****************************************************
-            Msg_1 = Msg_Tx.Get_Msg_1();
-            Msg = Msg_1;
-            for (i=0; i < Sensors; i++) {
-                Msg_2 = Msg_Tx.Get_Msg_2(i);
-                Msg = Msg + Msg_2;
-            }
-            // SOLO PARA DEPURAR****************************************************
-
-            if (socket != null) {
-                /* create msg#1 */
-                Msg_1 = Msg_Tx.Get_Msg_1();
-                Msg = Msg_1;
-                for (i=0; i < Sensors; i++) {
-                    Msg_2 = Msg_Tx.Get_Msg_2(i);
-                    Msg = Msg + Msg_2;
-                }
-
-
-                out = socket.getOutputStream();
-                dout = new DataOutputStream(out);
-                dout.writeInt(1234);
-                /*dout.writeLong(123L);
-            dout.writeFloat(1.2f);*/
-                //dout.writeChars("Boton1");
-                dout.flush();
+        try{
+            if (Is_Connected){
+                new Send_Msg1_2_Async_Task().execute("");
             }else{
-                Alert_Message("Not connected with the Alarm. Try to reconnect.");
+                Alert_Message("Not connected to the Alarm. Try to reconnect to the Alarm first.");
             }
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "ERROR: Not connected to the Alarm", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "ERROR to send the petition", Toast.LENGTH_SHORT).show();
+        }catch (IllegalStateException e1){
+            Alert_Message("Unable to send the message to the alarm. Try later");
         }
-        /* TODO SOLO PARA PRUEBAS */
-
-
     }
 	
 	public void click_reconnect_button(View view){
@@ -532,6 +527,145 @@ public class ACMainActivity extends FragmentActivity {
 
 	}
 
+    /*************************************************************************/
+    /*                                                                       */
+    /*  Thread to send message 2 to the alarm                                */
+    /*                                                                       */
+    /*************************************************************************/
+    private class Send_Msg2_Async_Task extends AsyncTask <String, Void, Boolean> {
+        String Msg_2;
+        String Msg;
+        Boolean Error = false;
+        int i;
 
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            /* send message 2 to the alarm */
+            try{
+                if (socket.isConnected()) {
+                    for (i = 0; i < Sensors; i++) {
+                        Msg_2 = Msg_Tx.Get_Msg_2(i);
+                        Msg = Msg + Msg_2;
+                    }
+
+                    out = socket.getOutputStream();
+                    dout = new DataOutputStream(out);
+                    dout.writeBytes(Msg);
+                    dout.flush();
+                }else{
+                    ACMainActivity.this.runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            Alert_Message("Unable to send message 2. Not connected to the Alarm. Try to connect first");
+
+                        }
+                    });
+
+                }
+
+            }catch (UnknownHostException e1) {
+                e1.printStackTrace();
+                Error = true;
+                ACMainActivity.this.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        Alert_Message("Unable to send message 2");
+
+                    }
+                });
+            } catch (IOException e1) {
+                e1.printStackTrace();
+                Error = true;
+                ACMainActivity.this.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        Alert_Message("Unable to send message 2");
+                    }
+                });
+
+            }
+            return Error;
+        }
+
+        @Override
+        protected void onPostExecute (Boolean result){
+
+        }
+    }
+
+    /*************************************************************************/
+    /*                                                                       */
+    /*  Thread to send message 1 and 2 to the alarm                          */
+    /*                                                                       */
+    /*************************************************************************/
+    private class Send_Msg1_2_Async_Task extends AsyncTask <String, Void, Boolean> {
+        String Msg_1;
+        String Msg_2;
+        String Msg;
+        Boolean Error = false;
+        int i;
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            /* send message 1 and 2 to the alarm */
+            try{
+                if (socket.isConnected()) {
+                    Msg_1 = Msg_Tx.Get_Msg_1();
+                    Msg = Msg_1;
+                    for (i = 0; i < Sensors; i++) {
+                        Msg_2 = Msg_Tx.Get_Msg_2(i);
+                        Msg = Msg + Msg_2;
+                    }
+
+                    out = socket.getOutputStream();
+                    dout = new DataOutputStream(out);
+                    dout.writeBytes(Msg);
+                    dout.flush();
+                }else{
+                    ACMainActivity.this.runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            Alert_Message("Unable to send messages . Not connected to the Alarm. Try to connect first");
+                        }
+                    });
+
+                }
+
+            }catch (UnknownHostException e1) {
+                e1.printStackTrace();
+                Error = true;
+                ACMainActivity.this.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        Alert_Message("Unable to send messages");
+
+                    }
+                });
+            } catch (IOException e1) {
+                e1.printStackTrace();
+                Error = true;
+                ACMainActivity.this.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        Alert_Message("Unable to send messages");
+                    }
+                });
+
+            }
+            return Error;
+        }
+
+        @Override
+        protected void onPostExecute (Boolean result){
+
+        }
+    }
 
 }
