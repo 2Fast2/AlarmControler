@@ -34,7 +34,9 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <!-- From: file:/C:/Users/Casa/git/AlarmControler/AlarmControler/res/values/strings.xml -->
     <eat-comment/>
-    <string name="RefreshButton">Data Refresh</string>
+    <string name="ReconnectButton">Reconnect</string>
+    <string name="RefreshButton">Refresh</string>
+    <string name="ResetButton">Reset</string>
     <string name="SensorStatus">Status</string>
     <string name="SensorSwitchOnOff">Sensor Powered</string>
     <string name="SwitchOnOff">Power Alarm</string>

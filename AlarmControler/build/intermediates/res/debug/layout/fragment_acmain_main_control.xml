@@ -21,18 +21,30 @@
         android:layout_below="@+id/section_label"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="47dp"
-        android:text="@string/SwitchOnOff" />
+        android:text="@string/SwitchOnOff"
+        android:onClick="Click_Alarm_Power_Switch" />
 
     <Button
-        android:id="@+id/Data_Ref"
+        android:id="@+id/Recon_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/switch1"
-        android:layout_below="@+id/switch1"
-        android:layout_marginLeft="52dp"
-        android:layout_marginTop="120dp"
-        android:onClick="click_data_refresh"
-        android:text="@string/RefreshButton" />
+        android:onClick="click_reconnect_button"
+        android:text="@string/ReconnectButton"
+        android:layout_gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="153dp" />
+
+    <Button
+        android:id="@+id/Refresh_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="click_data_refresh_button"
+        android:text="@string/RefreshButton"
+        android:layout_alignBottom="@+id/Recon_Button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="67dp"
+        android:layout_gravity="center" />
 
 </RelativeLayout>
 <!-- From: file:/C:/Users/Casa/git/AlarmControler/AlarmControler/res/layout/fragment_acmain_main_control.xml -->

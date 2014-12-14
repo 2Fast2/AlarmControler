@@ -14,24 +14,35 @@
         android:layout_height="wrap_content" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/sensor_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/section_label"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="47dp"
-        android:text="@string/SensorSwitchOnOff" />
+        android:text="@string/SensorSwitchOnOff"
+        android:onClick="Click_Sensor_Power_Switch" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/section_label"
-        android:layout_below="@+id/switch1"
+        android:layout_below="@+id/sensor_switch"
         android:layout_marginTop="22dp"
         android:inputType="none"
         android:text="@string/SensorStatus"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ResetButton"
+        android:id="@+id/reset_switch_button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="56dp"
+        android:onClick="Click_Reset_Sensor_Button" />
 
 </RelativeLayout>
 <!-- From: file:/C:/Users/Casa/git/AlarmControler/AlarmControler/res/layout/fragment_acmain_sensor_view.xml -->

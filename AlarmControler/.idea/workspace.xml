@@ -30,13 +30,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83d22ec9-abee-4908-af09-098925d156a1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/es/jorge/alarmcontroler/AlarmPullService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/model_data.bin" afterPath="$PROJECT_DIR$/build/intermediates/model_data.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/es/jorge/alarmcontroler/ACMainActivity.java" afterPath="$PROJECT_DIR$/src/es/jorge/alarmcontroler/ACMainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/es/jorge/alarmcontroler/SensorViewFragment.java" afterPath="$PROJECT_DIR$/src/es/jorge/alarmcontroler/SensorViewFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/es/jorge/alarmcontroler/TX_Messages.java" afterPath="$PROJECT_DIR$/src/es/jorge/alarmcontroler/TX_Messages.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="AlarmControler.iws" />
@@ -1059,7 +1052,11 @@
       <created>1417829111907</created>
       <updated>1417829111907</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="create the service to receive incoming messages. Correct msg2 creation.">
+      <created>1418525192608</created>
+      <updated>1418525192608</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1143,7 +1140,8 @@
     <MESSAGE value="Create messages from the app to the alarm. Msg_2 is not created correctly." />
     <MESSAGE value="Create Msg2 correctly when pulse Reset button or change Sensor Powered switch." />
     <MESSAGE value="Add two async tasks to send msg2 alone or msg1 plus msg2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add two async tasks to send msg2 alone or msg1 plus msg2" />
+    <MESSAGE value="create the service to receive incoming messages. Correct msg2 creation." />
+    <option name="LAST_COMMIT_MESSAGE" value="create the service to receive incoming messages. Correct msg2 creation." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
