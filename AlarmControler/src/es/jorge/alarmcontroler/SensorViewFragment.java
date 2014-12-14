@@ -12,8 +12,6 @@ import android.widget.TextView;
 /**
  * Created by Jorge on 02/11/2014.
 
-public class SensorViewFragment {
-}
 */
 
 /**

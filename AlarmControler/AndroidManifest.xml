@@ -33,6 +33,7 @@
             android:name="es.jorge.alarmcontroler.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+        <service android:name=".AlarmPullService" />
     </application>
 
 </manifest>

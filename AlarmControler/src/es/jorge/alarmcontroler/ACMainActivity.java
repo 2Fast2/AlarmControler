@@ -120,6 +120,12 @@ public class ACMainActivity extends FragmentActivity {
         Connection_Thread = new Thread(new ClientThread());
         Connection_Thread.setName("Client Connection Thread");
         Connection_Thread.start();
+
+        /* create the service to listen to incoming messages */
+        Intent intent = new Intent(this, AlarmPullService.class);
+        startService(intent);
+
+
 	}
 
     public void Reconnection (){
@@ -537,6 +543,7 @@ public class ACMainActivity extends FragmentActivity {
         String Msg;
         Boolean Error = false;
         int i;
+        Boolean First_Time = true;
 
 
         @Override
@@ -546,7 +553,12 @@ public class ACMainActivity extends FragmentActivity {
                 if (socket.isConnected()) {
                     for (i = 0; i < Sensors; i++) {
                         Msg_2 = Msg_Tx.Get_Msg_2(i);
-                        Msg = Msg + Msg_2;
+                        if (First_Time) {
+                            Msg = Msg_2;
+                            First_Time = false;
+                        }else {
+                            Msg = Msg + Msg_2;
+                        }
                     }
 
                     out = socket.getOutputStream();

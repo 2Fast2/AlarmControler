@@ -39,8 +39,6 @@ public class TX_Messages {
         for (i=0; i < 10; i++){
             Msg_2_Array[i] = Default_Msg_2;
         }
-
-
     }
 
     /*************************************************************************/
@@ -101,7 +99,7 @@ public class TX_Messages {
     /*************************************************************************/
     public static void Set_Msg_2 (int Sensor_Number, boolean Power_Switch, boolean Sensor_Reset){
 
-        Msg_2_Array[Sensor_Number] = Fill_Msg_2(Sensor_Number, Power_Switch, Sensor_Reset);
+        Msg_2_Array[Sensor_Number - 1 ] = Fill_Msg_2(Sensor_Number, Power_Switch, Sensor_Reset);
 
     }
 
