@@ -2,9 +2,6 @@ package es.jorge.alarmcontroler;
 
 import android.app.Service;
 import android.content.Intent;
-import android.net.LocalServerSocket;
-import android.net.LocalSocket;
-import android.net.LocalSocketAddress;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -12,7 +9,11 @@ import android.os.Looper;
 import android.os.Message;
 import android.widget.Toast;
 
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 /**
  * Created by Jorge on 14/12/2014.
@@ -24,7 +25,12 @@ public class AlarmPullService extends Service {
 
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
-    private final String SOCKET_ADDRESS = "AlarmConnection";
+    static final int SocketServerPORT = 5001;
+    Socket socket;
+    /* input stream to read the input information */
+    InputStream InStream;
+    DataInputStream DataInStream;
+    byte[] IncomingMsg = new byte[100];
 
 
     // Handler that receives messages from the thread
@@ -48,22 +54,22 @@ public class AlarmPullService extends Service {
                 }
             }*/
 
-            int ret;
+            int ret = -1;
 
             /* create the server socket connection */
-            LocalSocket receiver;
-            LocalServerSocket server;
+            ServerSocket serverSocket;
 
             try
             {
-                server = new LocalServerSocket(SOCKET_ADDRESS);
+                serverSocket = new ServerSocket(SocketServerPORT);
 
-               /* localServerCreated();*/
-                receiver = server.accept();
+                /* Waits for an incoming request */
+                socket = serverSocket.accept();
 
-                System.out.println("---------server.accept();------------- ");
+                InStream = socket.getInputStream();
+                DataInStream = new DataInputStream(InStream);
 
-                while ((ret = receiver.getInputStream().read()) != -1)
+                while ((ret = DataInStream.read(IncomingMsg)) != -1)
                 {
                     System.out.println( "ret =" + ret);
                 }
@@ -83,31 +89,6 @@ public class AlarmPullService extends Service {
         }
     }
 
-  /*  private void localServerCreated()
-    {
-        LocalSocket sender;
-        try
-        {
-            sender = new LocalSocket();
-            sender.connect(new LocalSocketAddress(SOCKET_ADDRESS));
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        System.out.println("------mRecorder configured--------");
-        try
-        {
-
-            System.out.println("------mRecorder.start()--------");
-        }
-        catch (IllegalStateException e)
-        {
-            e.printStackTrace();
-        }
-
-    }
-*/
     @Override
     public void onCreate() {
         // Start up the thread running the service.  Note that we create a
