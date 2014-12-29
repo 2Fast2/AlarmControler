@@ -7,7 +7,7 @@
 byte mac[] = {
   0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED}; 
 // assign an IP address for the controller:
-IPAddress ip(192,168,1,34);
+IPAddress ip(192,168,1,40);
 IPAddress gateway(192,168,1,1);
 IPAddress subnet(255,255,255,0);
 
@@ -17,6 +17,12 @@ IPAddress subnet(255,255,255,0);
 // with the IP address and port you want to use 
 EthernetServer server(5000);
 
+/* declare android client */
+EthernetClient AndroidClient;
+/* declare android client IP */
+IPAddress remoteIP(0,0,0,0);
+/* remote port */
+#define REMOTE_PORT 5001
 
 /********************************************************/
 /* This function configure the Arduino*/
@@ -45,6 +51,12 @@ void Clean_Buffer_Reception(char * Buffer){
 }
 
 /********************************************************/
+/* this function decode the received command */
+void DecodeCommand (char Cmd[])
+{
+}
+
+/********************************************************/
 /* this is the main loop controller */
 void loop() {
 
@@ -58,15 +70,15 @@ void loop() {
 
   if (client) {
     Serial.println("Got a client");
+    
+    remoteIP = client.getRemoteIP();
+    Serial.print("IP: ");
+    Serial.println(remoteIP);
+    
     // when the client connect to the server
     if (client.connected()){
       Serial.println("client connected");
       
-    /*  while (client.available()){
-        value = client.read();
-        Serial.println(value);
-      }
-      */
       /* clean reception buffer */
         Clean_Buffer_Reception(&command[0]);
       //while client connedted, receive and transmit info
@@ -88,12 +100,19 @@ void loop() {
       }
 
       Serial.println(command);
-
-      // decode command
-      if (strstr(command, "Boton1")){
-        client.println("Boton 1 received");
-        Serial.println("Boton 1 received");
-      }
+      
+      /* decode received command */
+      DecodeCommand(command);
+      
+      /* to test send a msg to the android app */
+      if (!AndroidClient.connected()){
+        if (AndroidClient.connect(remoteIP,REMOTE_PORT)){
+          Serial.println("CONECTADO A LA APP");
+          AndroidClient.write("Prueba");
+        }else{
+          Serial.println("ERROR: error to connect to the Android App");
+        }
+      } 
     }
   }
 }
