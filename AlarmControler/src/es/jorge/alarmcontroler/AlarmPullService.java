@@ -59,6 +59,10 @@ public class AlarmPullService extends Service {
             /* create the server socket connection */
             ServerSocket serverSocket;
 
+            /* Una dir donde pasan info de un servicio a una activity
+             * http://android-coding.blogspot.in/2011/11/pass-data-from-service-to-activity.html
+              *
+              * */
             try
             {
                 serverSocket = new ServerSocket(SocketServerPORT);
@@ -72,6 +76,7 @@ public class AlarmPullService extends Service {
                 while ((ret = DataInStream.read(IncomingMsg)) != -1)
                 {
                     System.out.println( "ret =" + ret);
+
                 }
 
                 System.out.println("ret =" + ret);

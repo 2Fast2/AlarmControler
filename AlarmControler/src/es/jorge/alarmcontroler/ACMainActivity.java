@@ -448,6 +448,8 @@ public class ACMainActivity extends FragmentActivity {
     /*************************************************************************/
 	class ClientThread implements Runnable {
 
+        View myView; /* this is a null view */
+
         @Override
         public void run() {
 
@@ -510,6 +512,10 @@ public class ACMainActivity extends FragmentActivity {
             }
 
             if (Is_Connected){
+
+                /* send a refresh msg to tell to the switchbox that the app is online */
+                click_data_refresh_button(myView);
+
                 ACMainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
