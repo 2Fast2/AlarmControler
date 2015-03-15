@@ -53,6 +53,13 @@ void setup() {
 
   // give the sensor and Ethernet shield time to set up:
   delay(1000);
+  
+  // starting banner
+ // Serial.println("////////////////////////////////////////////////////////");
+ // Serial.println("//                                                    //");
+ // Serial.println("//          Application started  ver. 0.0.1           //");
+ // Serial.println("//                                                    //");
+ // Serial.println("////////////////////////////////////////////////////////");
 
 }
 
@@ -257,9 +264,10 @@ void loop() {
       if (!AndroidClient.connected()){
         if (AndroidClient.connect(remoteIP,REMOTE_PORT)){
           Serial.println("CONECTADO A LA APP");
-          AndroidClient.write("Prueba");
+          AndroidClient.write("1/3/1/0/5.5/20.0///2/1/1/1/23.5/3.3///");
         }else{
           Serial.println("ERROR: error to connect to the Android App");
+          AndroidClient.stop();
         }
       }
     /*************************************************************/
