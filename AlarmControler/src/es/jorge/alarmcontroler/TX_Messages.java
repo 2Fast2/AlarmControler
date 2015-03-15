@@ -21,7 +21,7 @@ public class TX_Messages {
 
     private static String[] Msg_2_Array ;
 
-    private static String Default_Msg_2 = "2/0/-1/-1///";
+    private static String Default_Msg_2 = "2/0/-/-///";
 
     /* constructor */
     public TX_Messages(){

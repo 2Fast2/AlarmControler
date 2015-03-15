@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 
 /**
  * Created by Jorge on 14/12/2014.
@@ -30,7 +31,7 @@ public class AlarmPullService extends Service {
     /* input stream to read the input information */
     InputStream InStream;
     DataInputStream DataInStream;
-    byte[] IncomingMsg = new byte[100];
+    byte[] IncomingMsg = new byte[250];
 
 
     // Handler that receives messages from the thread
@@ -76,10 +77,10 @@ public class AlarmPullService extends Service {
                 while ((ret = DataInStream.read(IncomingMsg)) != -1)
                 {
                     System.out.println( "ret =" + ret);
+                    System.out.println(IncomingMsg);
+                    DecodeCommand(IncomingMsg, ret);
 
                 }
-
-                System.out.println("ret =" + ret);
 
             }
             catch (IOException e)
@@ -133,4 +134,56 @@ public class AlarmPullService extends Service {
     public void onDestroy() {
         Toast.makeText(this, "service done", Toast.LENGTH_SHORT).show();
     }
+
+
+    /* Decode received msg */
+    private void DecodeCommand(byte[] Cmd, int Size)
+    {
+        byte[] AuxArray = new byte[50];
+        int AuxArrayIndex = 0;
+        int i = 0;
+        int EoM = 0;
+        byte Default = (byte)0xff;
+
+        // Decode all the received mesg
+        for (i=0; i < (Size +1); i++)
+        {
+            if(Cmd[i] != '/')
+            {
+                AuxArray[AuxArrayIndex] = Cmd[i];
+            }else if (Cmd[i+1] == '/' && Cmd[i+2] == '/'){
+                EoM = 1;
+            }else{
+                AuxArray[AuxArrayIndex] = '/';
+            }
+            AuxArrayIndex += 1;
+
+            //if it is the end of the msg decode the command
+            if (EoM == 1)
+            {
+                if (AuxArray[0] == '1')
+                {
+                    DecodeCmd1(AuxArray);
+                    EoM = 0;
+                    Arrays.fill(AuxArray, Default);
+                     i += 2;
+                    AuxArrayIndex = 0;
+                }else if (AuxArray[0] == '2') {
+                    DecodeCmd2(AuxArray);
+                    EoM = 0;
+                    Arrays.fill(AuxArray, Default);
+                    i += 2;
+                    AuxArrayIndex = 0;
+                }else{
+                    System.out.println("ERROR: Unknown command");
+                }
+
+            }
+        }
+    }
+
+    private void DecodeCmd1(byte[] Cmd){}
+
+    private void DecodeCmd2(byte[] Cmd){}
+
 }
