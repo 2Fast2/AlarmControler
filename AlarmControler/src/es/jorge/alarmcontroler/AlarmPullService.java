@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 /**
@@ -32,6 +33,9 @@ public class AlarmPullService extends Service {
     InputStream InStream;
     DataInputStream DataInStream;
     byte[] IncomingMsg = new byte[250];
+    int LastAlarmStatus = 0;
+    int SourcePower = 0;
+    final double MAIN_MIN_VOLTAGE = 2.5;
 
 
     // Handler that receives messages from the thread
@@ -54,6 +58,11 @@ public class AlarmPullService extends Service {
                     }
                 }
             }*/
+
+            /* el cód práctico de como se hace una notificación
+            http://www.vogella.com/tutorials/AndroidNotifications/article.html
+            */
+
 
             int ret = -1;
 
@@ -145,7 +154,7 @@ public class AlarmPullService extends Service {
         int EoM = 0;
         byte Default = (byte)0xff;
 
-        // Decode all the received mesg
+        // Decode all the received msg
         for (i=0; i < (Size +1); i++)
         {
             if(Cmd[i] != '/')
@@ -182,8 +191,65 @@ public class AlarmPullService extends Service {
         }
     }
 
-    private void DecodeCmd1(byte[] Cmd){}
+    private void DecodeCmd1(byte[] Cmd){
 
-    private void DecodeCmd2(byte[] Cmd){}
+        byte[] AuxVoltageValue = new byte[3];
+        String AuxValue;
+        double Value = 0.0;
+
+        // Check if the alarm has changed its state
+        if (LastAlarmStatus != Cmd[2]){
+            // change alarm status raise alert
+        }
+        // Check if there are a change in the source power
+        if (SourcePower != Cmd[3]){
+            // change alarm source power
+        }
+        // Check if the battery alarm is under a value
+        AuxVoltageValue[0] = Cmd[8];
+        AuxVoltageValue[1] = Cmd[9];
+        AuxVoltageValue[2] = Cmd[10];
+
+        AuxValue = AuxVoltageValue.toString();
+
+        Value = Double.parseDouble(AuxValue);
+
+        if (Cmd[3] == 1 && Value < MAIN_MIN_VOLTAGE){
+            // alarm due to a low battery voltage
+        }
+    }
+
+    private void DecodeCmd2(byte[] Cmd){
+
+        int SensorNumber = 0;
+        byte[] AuxVoltageValue = new byte[3];
+        String AuxValue;
+        double Value = 0.0;
+
+        // store sensor number
+        SensorNumber = Cmd[2];
+
+        // check if the sensor has been activated
+        if (Cmd[6] > 0)
+        {
+           // alarm due to sensor activation
+        }
+
+        //check if the sensor battery is under a value
+        AuxVoltageValue[0] = Cmd[13];
+        AuxVoltageValue[1] = Cmd[14];
+        AuxVoltageValue[2] = Cmd[15];
+
+        AuxValue = AuxVoltageValue.toString();
+
+        Value = Double.parseDouble(AuxValue);
+
+        if (Value < MAIN_MIN_VOLTAGE){
+            // alarm due to a low battery voltage
+        }
+
+
+
+    }
 
 }
